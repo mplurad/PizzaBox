@@ -3,15 +3,9 @@ using Xunit;
 
 namespace PizzaBox.Testing.Tests
 {
-  /// <summary>
-  /// 
-  /// </summary>
   public class StoreTests
   {
-    /// <summary>
-    /// 
-    /// </summary>
-    [Fact]
+     [Fact]
     public void Test_StoreName()
     {/*
       // arrange

@@ -33,8 +33,7 @@ namespace PizzaBox.Domain.Models
       }
     }
 
-    public byte StoreId
-    { get; set; }
+    public byte StoreId { get; set; }
     public string StoreLocation { get; set; }
 
     public virtual ICollection<AOrder> Orders { get; set; }

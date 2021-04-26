@@ -1,18 +1,16 @@
-using System.Linq;
 using PizzaBox.Domain.Models;
 using PizzaBox.Storing.Entities;
 
 namespace PizzaBox.Storing
 {
-  public class Mapper : IMapper
+    public class Mapper : IMapper
   {
     public AStore Map(Store store)
     {
       return new AStore
       {
         StoreId = store.StoreId,
-        StoreLocation = store.StoreLocation,
-        //Orders = store.Orders.Select(x => Map(x)).ToList()
+        StoreLocation = store.StoreLocation
       };
     }
 
@@ -20,9 +18,8 @@ namespace PizzaBox.Storing
     {
       return new Store
       {
-        StoreId = store.StoreId,
-        StoreLocation = store.StoreLocation,
-        //Orders = store.Orders.Select(x => Map(x)).ToList()
+        //StoreId = store.StoreId,
+        StoreLocation = store.StoreLocation
       };
     }
 
@@ -32,8 +29,7 @@ namespace PizzaBox.Storing
       {
         CrustId = crust.CrustId,
         CrustName = crust.CrustName,
-        CrustPrice = crust.CrustPrice,
-        //Pizzas = crust.Pizzas.Select(x => Map(x)).ToList()
+        CrustPrice = crust.CrustPrice
       };
     }
 
@@ -43,8 +39,7 @@ namespace PizzaBox.Storing
       {
         CrustId = crust.CrustId,
         CrustName = crust.CrustName,
-        CrustPrice = crust.CrustPrice,
-        //Pizzas = crust.Pizzas.Select(x => Map(x)).ToList()
+        CrustPrice = crust.CrustPrice
       };
     }
 
@@ -61,8 +56,7 @@ namespace PizzaBox.Storing
         CustomerAddress = customer.CustomerAddress,
         CustomerCardNumber = customer.CustomerCardNumber,
         CustomerCardDate = customer.CustomerCardDate,
-        CustomerCardCvv = customer.CustomerCardCvv,
-        //Orders = customer.Orders.Select(x => Map(x)).ToList()
+        CustomerCardCvv = customer.CustomerCardCvv
       };
     }
 
@@ -70,7 +64,7 @@ namespace PizzaBox.Storing
     {
       return new Customer
       {
-        CustomerId = customer.CustomerId,
+        //CustomerId = customer.CustomerId,
         Username = customer.Username,
         Password = customer.Password,
         CustomerFirstName = customer.CustomerFirstName,
@@ -79,8 +73,7 @@ namespace PizzaBox.Storing
         CustomerAddress = customer.CustomerAddress,
         CustomerCardNumber = customer.CustomerCardNumber,
         CustomerCardDate = customer.CustomerCardDate,
-        CustomerCardCvv = customer.CustomerCardCvv,
-        //Orders = customer.Orders.Select(x => Map(x)).ToList()
+        CustomerCardCvv = customer.CustomerCardCvv
       };
     }
 
@@ -92,10 +85,7 @@ namespace PizzaBox.Storing
         CustomerId = order.CustomerId,
         StoreId = order.StoreId,
         Cost = order.Cost,
-        OrderDate = order.OrderDate,
-        //Customer = Map(order.Customer),
-        //Store = Map(order.Store),
-        //Pizzas = order.Pizzas.Select(x => Map(x)).ToList()
+        OrderDate = order.OrderDate
       };
     }
 
@@ -103,14 +93,11 @@ namespace PizzaBox.Storing
     {
       return new Order
       {
-        OrderId = order.OrderId,
+        //OrderId = order.OrderId,
         CustomerId = order.CustomerId,
         StoreId = order.StoreId,
         Cost = order.Cost,
-        OrderDate = order.OrderDate,
-        //Customer = Map(order.Customer),
-        //Store = Map(order.Store),
-        //Pizzas = order.Pizzas.Select(x => Map(x)).ToList()
+        OrderDate = order.OrderDate
       };
     }
 
@@ -122,11 +109,7 @@ namespace PizzaBox.Storing
         OrderId = pizza.OrderId,
         CrustId = pizza.CrustId,
         PizzaSizeId = pizza.PizzaSizeId,
-        PizzaPrice = pizza.PizzaPrice,
-        //Crust = Map(pizza.Crust),
-        //Order = Map(pizza.Order),
-        //PizzaSize = Map(pizza.PizzaSize),
-        //PizzaToppings = pizza.PizzaToppings.Select(x => Map(x)).ToList()
+        PizzaPrice = pizza.PizzaPrice
       };
     }
 
@@ -134,15 +117,11 @@ namespace PizzaBox.Storing
     {
       return new Pizza
       {
-        PizzaId = pizza.PizzaId,
+        //PizzaId = pizza.PizzaId,
         OrderId = pizza.OrderId,
         CrustId = pizza.CrustId,
         PizzaSizeId = pizza.PizzaSizeId,
-        PizzaPrice = pizza.PizzaPrice,
-        //Crust = Map(pizza.Crust),
-        //Order = Map(pizza.Order),
-        //PizzaSize = Map(pizza.PizzaSize),
-        //PizzaToppings = pizza.PizzaToppings.Select(x => Map(x)).ToList()
+        PizzaPrice = pizza.PizzaPrice
       };
     }
 
@@ -153,8 +132,7 @@ namespace PizzaBox.Storing
         PizzaSizeId = pizzaSize.PizzaSizeId,
         PizzaSizeName = pizzaSize.PizzaSizeName,
         PizzaSizeInches = pizzaSize.PizzaSizeInches,
-        PizzaSizePrice = pizzaSize.PizzaSizePrice,
-        //Pizzas = pizzaSize.Pizzas.Select(x => Map(x)).ToList()
+        PizzaSizePrice = pizzaSize.PizzaSizePrice
       };
     }
 
@@ -165,8 +143,7 @@ namespace PizzaBox.Storing
         PizzaSizeId = pizzaSize.PizzaSizeId,
         PizzaSizeName = pizzaSize.PizzaSizeName,
         PizzaSizeInches = pizzaSize.PizzaSizeInches,
-        PizzaSizePrice = pizzaSize.PizzaSizePrice,
-        //Pizzas = pizzaSize.Pizzas.Select(x => Map(x)).ToList()
+        PizzaSizePrice = pizzaSize.PizzaSizePrice
       };
     }
 
@@ -177,9 +154,7 @@ namespace PizzaBox.Storing
         PizzaToppingId = pizzaTopping.PizzaToppingId,
         PizzaId = pizzaTopping.PizzaId,
         ToppingId = pizzaTopping.ToppingId,
-        ToppingCount = pizzaTopping.ToppingCount,
-        //Pizza = Map(pizzaTopping.Pizza),
-        //Topping = Map(pizzaTopping.Topping)
+        ToppingCount = pizzaTopping.ToppingCount
       };
     }
 
@@ -187,12 +162,10 @@ namespace PizzaBox.Storing
     {
       return new PizzaTopping
       {
-        PizzaToppingId = pizzaTopping.PizzaToppingId,
+        //PizzaToppingId = pizzaTopping.PizzaToppingId,
         PizzaId = pizzaTopping.PizzaId,
         ToppingId = pizzaTopping.ToppingId,
-        ToppingCount = pizzaTopping.ToppingCount,
-        //Pizza = Map(pizzaTopping.Pizza),
-        //Topping = Map(pizzaTopping.Topping)
+        ToppingCount = pizzaTopping.ToppingCount
       };
     }
 
@@ -202,8 +175,7 @@ namespace PizzaBox.Storing
       {
         ToppingId = topping.ToppingId,
         ToppingName = topping.ToppingName,
-        ToppingPrice = topping.ToppingPrice,
-        //PizzaToppings = topping.PizzaToppings.Select(x => Map(x)).ToList()
+        ToppingPrice = topping.ToppingPrice
       };
     }
 
@@ -213,8 +185,7 @@ namespace PizzaBox.Storing
       {
         ToppingId = topping.ToppingId,
         ToppingName = topping.ToppingName,
-        ToppingPrice = topping.ToppingPrice,
-        //PizzaToppings = topping.PizzaToppings.Select(x => Map(x)).ToList()
+        ToppingPrice = topping.ToppingPrice
       };
     }
   }
