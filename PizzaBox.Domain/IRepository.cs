@@ -28,6 +28,6 @@ namespace PizzaBox.Domain
         void Update(AStore store);
 
         // DELETE
-        void DeleteStore(int storeID);
+        void DeleteStore(byte storeID);
     }
 }

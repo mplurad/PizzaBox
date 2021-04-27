@@ -1,0 +1,48 @@
+﻿@model PizzaBox.Client.Models.Store[]
+@{
+    ViewData["Title"] = "Stores";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a asp-action="">Create New Store</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model[0])
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[1])
+            </th>
+        </tr>
+    </thead>
+
+    @*
+    <tbody>
+        @foreach (var item in model => model.ToList())
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StoreId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StoreLocation)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.StoreId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.StoreId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.StoreId })
+                </td>
+            </tr>
+        }
+        <tr>
+            <td>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+    </tbody>
+    *@
+</table>

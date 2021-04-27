@@ -34,10 +34,10 @@ namespace PizzaBox.Service.Controllers
             }
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{sid}")]//https://localhost:5001/api/Store/5
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<AStore> GetById(int sid)
+        public ActionResult<AStore> GetById([FromRoute]int sid)
         {
             try
             {
@@ -97,7 +97,7 @@ namespace PizzaBox.Service.Controllers
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult Delete(int storeID)
+        public IActionResult Delete(byte storeID)
         {
             try
             {

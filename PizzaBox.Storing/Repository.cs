@@ -122,9 +122,10 @@ namespace PizzaBox.Storing
         }
 
         // DELETE
-        public void DeleteStore(int storeID)
+        public void DeleteStore(byte storeID)
         {
             context.Remove(context.Stores.Find(storeID));
+            context.SaveChanges();
         }
 
     }
