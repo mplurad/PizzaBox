@@ -7,7 +7,7 @@ namespace PizzaBox.Domain.Models
   {
     public ACustomer()
     {
-      Orders = new HashSet<AOrder>();
+      //Orders = new HashSet<AOrder>();
     }
 
     public override string ToString()
@@ -26,6 +26,6 @@ namespace PizzaBox.Domain.Models
     public string CustomerCardDate { get; set; }
     public string CustomerCardCvv { get; set; }
 
-    public virtual ICollection<AOrder> Orders { get; set; }
+    //public virtual ICollection<AOrder> Orders { get; set; }
   }
 }

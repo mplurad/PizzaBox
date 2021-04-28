@@ -6,13 +6,13 @@ namespace PizzaBox.Domain.Models
     {
         public ATopping()
         {
-            PizzaToppings = new HashSet<APizzaTopping>();
+            //PizzaToppings = new HashSet<APizzaTopping>();
         }
 
         public int ToppingId { get; set; }
         public string ToppingName { get; set; }
         public decimal ToppingPrice { get; set; }
 
-        public virtual ICollection<APizzaTopping> PizzaToppings { get; set; }
+        //public virtual ICollection<APizzaTopping> PizzaToppings { get; set; }
     }
 }

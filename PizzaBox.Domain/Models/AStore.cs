@@ -7,7 +7,7 @@ namespace PizzaBox.Domain.Models
     {
         public AStore()
         {
-            Orders = new HashSet<AOrder>();
+            //Orders = new HashSet<AOrder>();
         }
 
         public static void DisplayStores(List<AStore> stores)
@@ -36,7 +36,7 @@ namespace PizzaBox.Domain.Models
         public int StoreId { get; set; }
         public string StoreLocation { get; set; }
 
-        public virtual ICollection<AOrder> Orders { get; set; }
+        //public virtual ICollection<AOrder> Orders { get; set; }
 
         public override string ToString()
         {

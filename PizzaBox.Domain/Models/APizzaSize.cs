@@ -6,7 +6,7 @@ namespace PizzaBox.Domain.Models
     {
         public APizzaSize()
         {
-            Pizzas = new HashSet<APizza>();
+            //Pizzas = new HashSet<APizza>();
         }
 
         public int PizzaSizeId { get; set; }
@@ -14,6 +14,6 @@ namespace PizzaBox.Domain.Models
         public int PizzaSizeInches { get; set; }
         public decimal PizzaSizePrice { get; set; }
 
-        public virtual ICollection<APizza> Pizzas { get; set; }
+        //public virtual ICollection<APizza> Pizzas { get; set; }
     }
 }

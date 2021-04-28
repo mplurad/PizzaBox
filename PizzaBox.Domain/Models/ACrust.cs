@@ -6,7 +6,7 @@ namespace PizzaBox.Domain.Models
     {
         public ACrust()
         {
-            Pizzas = new HashSet<APizza>();
+            //Pizzas = new HashSet<APizza>();
         }
 
         /*public static ACrust SelectCrust(IRepository r)
@@ -19,6 +19,6 @@ namespace PizzaBox.Domain.Models
         public string CrustName { get; set; }
         public decimal CrustPrice { get; set; }
 
-        public virtual ICollection<APizza> Pizzas { get; set; }
+        //public virtual ICollection<APizza> Pizzas { get; set; }
     }
 }
