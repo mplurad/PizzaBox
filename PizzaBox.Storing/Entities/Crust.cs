@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace PizzaBox.Storing.Entities
 {
     [Table("Crust")]
-    [Index(nameof(CrustName), Name = "UQ__Crust__C2369FD2F3FA3E86", IsUnique = true)]
+    [Index(nameof(CrustName), Name = "UQ__Crust__C2369FD2C79F5523", IsUnique = true)]
     public partial class Crust
     {
         public Crust()
@@ -19,7 +19,7 @@ namespace PizzaBox.Storing.Entities
 
         [Key]
         [Column("CrustID")]
-        public byte CrustId { get; set; }
+        public int CrustId { get; set; }
         [StringLength(50)]
         public string CrustName { get; set; }
         [Column(TypeName = "smallmoney")]

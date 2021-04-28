@@ -2,17 +2,17 @@ using System.Collections.Generic;
 
 namespace PizzaBox.Domain.Models
 {
-  public partial class ATopping
-  {
-    public ATopping()
+    public partial class ATopping
     {
-      PizzaToppings = new HashSet<APizzaTopping>();
+        public ATopping()
+        {
+            PizzaToppings = new HashSet<APizzaTopping>();
+        }
+
+        public int ToppingId { get; set; }
+        public string ToppingName { get; set; }
+        public decimal ToppingPrice { get; set; }
+
+        public virtual ICollection<APizzaTopping> PizzaToppings { get; set; }
     }
-
-    public byte ToppingId { get; set; }
-    public string ToppingName { get; set; }
-    public decimal ToppingPrice { get; set; }
-
-    public virtual ICollection<APizzaTopping> PizzaToppings { get; set; }
-  }
 }

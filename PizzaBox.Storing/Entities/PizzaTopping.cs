@@ -18,8 +18,8 @@ namespace PizzaBox.Storing.Entities
         [Column("PizzaID")]
         public int PizzaId { get; set; }
         [Column("ToppingID")]
-        public byte ToppingId { get; set; }
-        public byte ToppingCount { get; set; }
+        public int ToppingId { get; set; }
+        public int ToppingCount { get; set; }
 
         [ForeignKey(nameof(PizzaId))]
         [InverseProperty("PizzaToppings")]

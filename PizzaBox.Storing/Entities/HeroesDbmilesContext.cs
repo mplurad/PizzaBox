@@ -42,8 +42,6 @@ namespace PizzaBox.Storing.Entities
 
             modelBuilder.Entity<Crust>(entity =>
             {
-                entity.Property(e => e.CrustId).ValueGeneratedOnAdd();
-
                 entity.Property(e => e.CrustName).IsUnicode(false);
             });
 
@@ -82,13 +80,13 @@ namespace PizzaBox.Storing.Entities
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.CustomerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Order__CustomerI__451F3D2B");
+                    .HasConstraintName("FK__Order__CustomerI__6497E884");
 
                 entity.HasOne(d => d.Store)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.StoreId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Order__StoreID__46136164");
+                    .HasConstraintName("FK__Order__StoreID__658C0CBD");
             });
 
             modelBuilder.Entity<Pizza>(entity =>
@@ -97,25 +95,23 @@ namespace PizzaBox.Storing.Entities
                     .WithMany(p => p.Pizzas)
                     .HasForeignKey(d => d.CrustId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Pizza__CrustID__4F9CCB9E");
+                    .HasConstraintName("FK__Pizza__CrustID__6F1576F7");
 
                 entity.HasOne(d => d.Order)
                     .WithMany(p => p.Pizzas)
                     .HasForeignKey(d => d.OrderId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Pizza__OrderID__4EA8A765");
+                    .HasConstraintName("FK__Pizza__OrderID__6E2152BE");
 
                 entity.HasOne(d => d.PizzaSize)
                     .WithMany(p => p.Pizzas)
                     .HasForeignKey(d => d.PizzaSizeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Pizza__PizzaSize__5090EFD7");
+                    .HasConstraintName("FK__Pizza__PizzaSize__70099B30");
             });
 
             modelBuilder.Entity<PizzaSize>(entity =>
             {
-                entity.Property(e => e.PizzaSizeId).ValueGeneratedOnAdd();
-
                 entity.Property(e => e.PizzaSizeName).IsUnicode(false);
             });
 
@@ -125,26 +121,22 @@ namespace PizzaBox.Storing.Entities
                     .WithMany(p => p.PizzaToppings)
                     .HasForeignKey(d => d.PizzaId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__PizzaTopp__Pizza__573DED66");
+                    .HasConstraintName("FK__PizzaTopp__Pizza__76B698BF");
 
                 entity.HasOne(d => d.Topping)
                     .WithMany(p => p.PizzaToppings)
                     .HasForeignKey(d => d.ToppingId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__PizzaTopp__Toppi__5832119F");
+                    .HasConstraintName("FK__PizzaTopp__Toppi__77AABCF8");
             });
 
             modelBuilder.Entity<Store>(entity =>
             {
-                entity.Property(e => e.StoreId).ValueGeneratedOnAdd();
-
                 entity.Property(e => e.StoreLocation).IsUnicode(false);
             });
 
             modelBuilder.Entity<Topping>(entity =>
             {
-                entity.Property(e => e.ToppingId).ValueGeneratedOnAdd();
-
                 entity.Property(e => e.ToppingName).IsUnicode(false);
             });
 

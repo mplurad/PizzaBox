@@ -22,9 +22,9 @@ namespace PizzaBox.Storing.Entities
         [Column("OrderID")]
         public int OrderId { get; set; }
         [Column("CrustID")]
-        public byte CrustId { get; set; }
+        public int CrustId { get; set; }
         [Column("PizzaSizeID")]
-        public byte PizzaSizeId { get; set; }
+        public int PizzaSizeId { get; set; }
         [Column(TypeName = "smallmoney")]
         public decimal PizzaPrice { get; set; }
 

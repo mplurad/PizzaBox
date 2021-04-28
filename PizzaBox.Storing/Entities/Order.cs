@@ -22,7 +22,7 @@ namespace PizzaBox.Storing.Entities
         [Column("CustomerID")]
         public int CustomerId { get; set; }
         [Column("StoreID")]
-        public byte StoreId { get; set; }
+        public int StoreId { get; set; }
         [Column(TypeName = "smallmoney")]
         public decimal? Cost { get; set; }
         [Column(TypeName = "datetime")]

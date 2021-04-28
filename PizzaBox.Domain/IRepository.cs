@@ -16,7 +16,7 @@ namespace PizzaBox.Domain
         List<APizzaTopping> GetAllPizzaToppings();
 
         // GET BY ID
-        ACustomer GetCustomers(int id);
+        ACustomer GetCustomer(int id);
         AStore GetStore(int id);
         AOrder GetOrder(int id);
         APizzaSize GetPizzaSize(int id);
@@ -38,14 +38,21 @@ namespace PizzaBox.Domain
         // PUT
         void UpdateCustomer(ACustomer customer);
         void UpdateStore(AStore store);
-        void UpdateOrder(ACustomer customer);
-        void UpdatePizzaSize(AStore store);
-        void UpdateCrust(ACustomer customer);
-        void UpdateTopping(AStore store);
-        void UpdatePizza(ACustomer customer);
-        void UpdatePizzaTopping(AStore store);
+        void UpdateOrder(AOrder order);
+        void UpdatePizzaSize(APizzaSize pizzaSize);
+        void UpdateCrust(ACrust crust);
+        void UpdateTopping(ATopping topping);
+        void UpdatePizza(APizza pizza);
+        void UpdatePizzaTopping(APizzaTopping pizzaTopping);
 
         // DELETE BY ID
-        void DeleteStore(byte storeID);
+        void DeleteCustomer(int id);
+        void DeleteStore(int id);
+        void DeleteOrder(int id);
+        void DeletePizzaSize(int id);
+        void DeleteCrust(int id);
+        void DeleteTopping(int id);
+        void DeletePizza(int id);
+        void DeletePizzaTopping(int id);
     }
 }

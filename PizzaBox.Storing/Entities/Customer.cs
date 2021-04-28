@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace PizzaBox.Storing.Entities
 {
     [Table("Customer")]
-    [Index(nameof(Username), Name = "UQ__Customer__536C85E458A06FC3", IsUnique = true)]
+    [Index(nameof(Username), Name = "UQ__Customer__536C85E455ED8286", IsUnique = true)]
     public partial class Customer
     {
         public Customer()

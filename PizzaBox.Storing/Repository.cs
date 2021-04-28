@@ -9,7 +9,7 @@ namespace PizzaBox.Storing
     public class Repository : IRepository
     {
         private readonly HeroesDbmilesContext context;
-        IMapper mapper = new Mapper();
+        private readonly IMapper mapper = new Mapper();
         public Repository(HeroesDbmilesContext context)
         {
             this.context = context;
@@ -151,7 +151,7 @@ namespace PizzaBox.Storing
         // PUT
         public void UpdateCustomer(ACustomer customer)
         {
-            var toUpdate = GetCustomer(customer.CustomerId);
+            var toUpdate = mapper.Map(GetCustomer(customer.CustomerId));
             if (toUpdate != null)
             {
                 toUpdate.CustomerFirstName = customer.CustomerFirstName;
@@ -169,7 +169,7 @@ namespace PizzaBox.Storing
 
         public void UpdateStore(AStore newItem)
         {
-            var oldItem = GetStore(newItem.StoreId);
+            var oldItem = mapper.Map(GetStore(newItem.StoreId));
             if (oldItem != null)
             {
                 oldItem.StoreLocation = newItem.StoreLocation;
@@ -179,7 +179,7 @@ namespace PizzaBox.Storing
 
         public void UpdateOrder(AOrder newItem)
         {
-            var oldItem = GetOrder(newItem.OrderId);
+            var oldItem = mapper.Map(GetOrder(newItem.OrderId));
             if (oldItem != null)
             {
                 oldItem.Cost = newItem.Cost;
@@ -192,7 +192,7 @@ namespace PizzaBox.Storing
 
         public void UpdatePizzaSize(APizzaSize newItem)
         {
-            var oldItem = GetPizzaSize(newItem.PizzaSizeId);
+            var oldItem = mapper.Map(GetPizzaSize(newItem.PizzaSizeId));
             if (oldItem != null)
             {
                 oldItem.PizzaSizeInches = newItem.PizzaSizeInches;
@@ -204,7 +204,7 @@ namespace PizzaBox.Storing
 
         public void UpdateCrust(ACrust newItem)
         {
-            var oldItem = GetCrust(newItem.CrustId);
+            var oldItem = mapper.Map(GetCrust(newItem.CrustId));
             if (oldItem != null)
             {
                 oldItem.CrustName = newItem.CrustName;
@@ -215,7 +215,7 @@ namespace PizzaBox.Storing
 
         public void UpdateTopping(ATopping newItem)
         {
-            var oldItem = GetTopping(newItem.ToppingId);
+            var oldItem = mapper.Map(GetTopping(newItem.ToppingId));
             if (oldItem != null)
             {
                 oldItem.ToppingName = newItem.ToppingName;
@@ -226,7 +226,7 @@ namespace PizzaBox.Storing
 
         public void UpdatePizza(APizza newItem)
         {
-            var oldItem = GetPizza(newItem.PizzaId);
+            var oldItem = mapper.Map(GetPizza(newItem.PizzaId));
             if (oldItem != null)
             {
                 oldItem.CrustId = newItem.CrustId;
@@ -237,22 +237,97 @@ namespace PizzaBox.Storing
             }
         }
 
-        public void UpdatePizza(newItem)
+        public void UpdatePizzaTopping(APizzaTopping newItem)
         {
-            var oldItem = GetStore(newItem.StoreId);
+            var oldItem = mapper.Map(GetPizzaTopping(newItem.PizzaToppingId));
             if (oldItem != null)
             {
-                oldItem.StoreLocation = newItem.StoreLocation;
+                oldItem.PizzaId = newItem.PizzaId;
+                oldItem.ToppingCount = newItem.ToppingCount;
+                oldItem.ToppingId = newItem.ToppingId;
                 context.SaveChanges();
             }
         }
 
         // DELETE
-        public void DeleteStore(byte storeID)
+        public void DeleteCustomer(int id)
         {
-            context.Remove(context.Stores.Find(storeID));
-            context.SaveChanges();
+            var item = mapper.Map(GetCustomer(id));
+            if (item != null)
+            {
+                context.Remove(item);
+                context.SaveChanges();
+            }
         }
 
+        public void DeleteStore(int id)
+        {
+            var item = mapper.Map(GetStore(id));
+            if (item != null)
+            {
+                context.Remove(item);
+                context.SaveChanges();
+            }
+        }
+
+        public void DeleteOrder(int id)
+        {
+            var item = mapper.Map(GetOrder(id));
+            if (item != null)
+            {
+                context.Remove(item);
+                context.SaveChanges();
+            }
+        }
+
+        public void DeletePizzaSize(int id)
+        {
+            var item = mapper.Map(GetPizzaSize(id));
+            if (item != null)
+            {
+                context.Remove(item);
+                context.SaveChanges();
+            }
+        }
+
+        public void DeleteCrust(int id)
+        {
+            var item = mapper.Map(GetCrust(id));
+            if (item != null)
+            {
+                context.Remove(item);
+                context.SaveChanges();
+            }
+        }
+
+        public void DeleteTopping(int id)
+        {
+            var item = mapper.Map(GetTopping(id));
+            if (item != null)
+            {
+                context.Remove(item);
+                context.SaveChanges();
+            }
+        }
+
+        public void DeletePizza(int id)
+        {
+            var item = mapper.Map(GetPizza(id));
+            if (item != null)
+            {
+                context.Remove(item);
+                context.SaveChanges();
+            }
+        }
+
+        public void DeletePizzaTopping(int id)
+        {
+            var item = mapper.Map(GetPizzaTopping(id));
+            if (item != null)
+            {
+                context.Remove(item);
+                context.SaveChanges();
+            }
+        }
     }
 }
