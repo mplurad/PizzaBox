@@ -25,6 +25,12 @@ namespace PizzaBox.Domain
         APizza GetPizza(int id);
         APizzaTopping GetPizzaTopping(int id);
 
+        // GET X BY Y
+        List<AOrder> GetOrdersByCustomer(int customerId);
+        List<AOrder> GetOrdersByStore(int storeId);
+        List<APizza> GetPizzasByOrder(int orderId);
+        List<ATopping> GetToppingsByPizza(int pizzaId);
+
         // POST
         void AddCustomer(ACustomer customer);
         void AddStore(AStore store);

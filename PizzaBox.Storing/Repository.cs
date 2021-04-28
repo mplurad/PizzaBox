@@ -99,6 +99,33 @@ namespace PizzaBox.Storing
             return mapper.Map(context.PizzaToppings.Where(x => x.PizzaToppingId == id).FirstOrDefault());
         }
 
+        // GET X BY Y
+        public List<AOrder> GetOrdersByCustomer(int customerId)
+        {
+            return context.Orders.Where(o => o.CustomerId == customerId).Select(mapper.Map).ToList();
+        }
+
+        public List<AOrder> GetOrdersByStore(int storeId)
+        {
+            return context.Orders.Where(o => o.StoreId == storeId).Select(mapper.Map).ToList();
+        }
+
+        public List<APizza> GetPizzasByOrder(int orderId)
+        {
+            return context.Pizzas.Where(p => p.OrderId == orderId).Select(mapper.Map).ToList();
+        }
+
+        public List<ATopping> GetToppingsByPizza(int pizzaId)
+        {
+            var pizzaToppings = context.PizzaToppings.Where(pt => pt.PizzaId == pizzaId);
+            List<ATopping> toppings = new();
+            foreach (PizzaTopping pizzaTopping in pizzaToppings)
+            {
+                toppings.Add(mapper.Map(context.Toppings.Find(pizzaTopping.ToppingId)));
+            }
+            return toppings;
+        }
+
         // POST
         public void AddCustomer(ACustomer customer)
         {
@@ -151,7 +178,7 @@ namespace PizzaBox.Storing
         // PUT
         public void UpdateCustomer(ACustomer customer)
         {
-            var toUpdate = mapper.Map(GetCustomer(customer.CustomerId));
+            var toUpdate = context.Customers.Find(customer.CustomerId);
             if (toUpdate != null)
             {
                 toUpdate.CustomerFirstName = customer.CustomerFirstName;
@@ -169,9 +196,10 @@ namespace PizzaBox.Storing
 
         public void UpdateStore(AStore newItem)
         {
-            var oldItem = mapper.Map(GetStore(newItem.StoreId));
+            var oldItem = context.Stores.Find(newItem.StoreId);
             if (oldItem != null)
             {
+                oldItem.StoreId = newItem.StoreId;
                 oldItem.StoreLocation = newItem.StoreLocation;
                 context.SaveChanges();
             }
@@ -179,7 +207,7 @@ namespace PizzaBox.Storing
 
         public void UpdateOrder(AOrder newItem)
         {
-            var oldItem = mapper.Map(GetOrder(newItem.OrderId));
+            var oldItem = context.Orders.Find(newItem.OrderId);
             if (oldItem != null)
             {
                 oldItem.Cost = newItem.Cost;
@@ -192,7 +220,7 @@ namespace PizzaBox.Storing
 
         public void UpdatePizzaSize(APizzaSize newItem)
         {
-            var oldItem = mapper.Map(GetPizzaSize(newItem.PizzaSizeId));
+            var oldItem = context.PizzaSizes.Find(newItem.PizzaSizeId);
             if (oldItem != null)
             {
                 oldItem.PizzaSizeInches = newItem.PizzaSizeInches;
@@ -204,7 +232,7 @@ namespace PizzaBox.Storing
 
         public void UpdateCrust(ACrust newItem)
         {
-            var oldItem = mapper.Map(GetCrust(newItem.CrustId));
+            var oldItem = context.Crusts.Find(newItem.CrustId);
             if (oldItem != null)
             {
                 oldItem.CrustName = newItem.CrustName;
@@ -215,7 +243,7 @@ namespace PizzaBox.Storing
 
         public void UpdateTopping(ATopping newItem)
         {
-            var oldItem = mapper.Map(GetTopping(newItem.ToppingId));
+            var oldItem = context.Toppings.Find(newItem.ToppingId);
             if (oldItem != null)
             {
                 oldItem.ToppingName = newItem.ToppingName;
@@ -226,7 +254,7 @@ namespace PizzaBox.Storing
 
         public void UpdatePizza(APizza newItem)
         {
-            var oldItem = mapper.Map(GetPizza(newItem.PizzaId));
+            var oldItem = context.Pizzas.Find(newItem.PizzaId);
             if (oldItem != null)
             {
                 oldItem.CrustId = newItem.CrustId;
@@ -239,7 +267,7 @@ namespace PizzaBox.Storing
 
         public void UpdatePizzaTopping(APizzaTopping newItem)
         {
-            var oldItem = mapper.Map(GetPizzaTopping(newItem.PizzaToppingId));
+            var oldItem = context.PizzaToppings.Find(newItem.PizzaToppingId);
             if (oldItem != null)
             {
                 oldItem.PizzaId = newItem.PizzaId;
@@ -252,7 +280,7 @@ namespace PizzaBox.Storing
         // DELETE
         public void DeleteCustomer(int id)
         {
-            var item = mapper.Map(GetCustomer(id));
+            var item = context.Customers.Find(id);
             if (item != null)
             {
                 context.Remove(item);
@@ -262,7 +290,7 @@ namespace PizzaBox.Storing
 
         public void DeleteStore(int id)
         {
-            var item = mapper.Map(GetStore(id));
+            var item = context.Stores.Find(id);
             if (item != null)
             {
                 context.Remove(item);
@@ -272,7 +300,7 @@ namespace PizzaBox.Storing
 
         public void DeleteOrder(int id)
         {
-            var item = mapper.Map(GetOrder(id));
+            var item = context.Orders.Find(id);
             if (item != null)
             {
                 context.Remove(item);
@@ -282,7 +310,7 @@ namespace PizzaBox.Storing
 
         public void DeletePizzaSize(int id)
         {
-            var item = mapper.Map(GetPizzaSize(id));
+            var item = context.PizzaSizes.Find(id);
             if (item != null)
             {
                 context.Remove(item);
@@ -292,7 +320,7 @@ namespace PizzaBox.Storing
 
         public void DeleteCrust(int id)
         {
-            var item = mapper.Map(GetCrust(id));
+            var item = context.Crusts.Find(id);
             if (item != null)
             {
                 context.Remove(item);
@@ -302,7 +330,7 @@ namespace PizzaBox.Storing
 
         public void DeleteTopping(int id)
         {
-            var item = mapper.Map(GetTopping(id));
+            var item = context.Toppings.Find(id);
             if (item != null)
             {
                 context.Remove(item);
@@ -312,7 +340,7 @@ namespace PizzaBox.Storing
 
         public void DeletePizza(int id)
         {
-            var item = mapper.Map(GetPizza(id));
+            var item = context.Pizzas.Find(id);
             if (item != null)
             {
                 context.Remove(item);
@@ -322,7 +350,7 @@ namespace PizzaBox.Storing
 
         public void DeletePizzaTopping(int id)
         {
-            var item = mapper.Map(GetPizzaTopping(id));
+            var item = context.PizzaToppings.Find(id);
             if (item != null)
             {
                 context.Remove(item);
