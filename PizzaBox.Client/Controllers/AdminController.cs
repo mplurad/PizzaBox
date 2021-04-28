@@ -79,5 +79,161 @@ namespace PizzaBox.Client.Controllers
             }
             return View(Stores);
         }
+
+        [HttpGet]
+        public IActionResult AllOrders()
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(url);
+
+                var responseTask = client.GetAsync("Customer"); // HTTP GET
+                responseTask.Wait();
+
+                var result = responseTask.Result; // This holds the output
+
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = result.Content.ReadAsAsync<List<Order>>();
+                    readTask.Wait();
+                    Orders = readTask.Result;
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Server error. Please call 123-456-PIZZA for assistance");
+                }
+            }
+            return View(Orders);
+        }
+
+        [HttpGet]
+        public IActionResult AllPizzaSizes()
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(url);
+
+                var responseTask = client.GetAsync("PizzaSize"); // HTTP GET
+                responseTask.Wait();
+
+                var result = responseTask.Result; // This holds the output
+
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = result.Content.ReadAsAsync<List<PizzaSize>>();
+                    readTask.Wait();
+                    PizzaSizes = readTask.Result;
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Server error. Please call 123-456-PIZZA for assistance");
+                }
+            }
+            return View(PizzaSizes);
+        }
+
+        [HttpGet]
+        public IActionResult AllCrusts()
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(url);
+
+                var responseTask = client.GetAsync("Crust"); // HTTP GET
+                responseTask.Wait();
+
+                var result = responseTask.Result; // This holds the output
+
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = result.Content.ReadAsAsync<List<Crust>>();
+                    readTask.Wait();
+                    Crusts = readTask.Result;
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Server error. Please call 123-456-PIZZA for assistance");
+                }
+            }
+            return View(Crusts);
+        }
+
+        [HttpGet]
+        public IActionResult AllToppings()
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(url);
+
+                var responseTask = client.GetAsync("Topping"); // HTTP GET
+                responseTask.Wait();
+
+                var result = responseTask.Result; // This holds the output
+
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = result.Content.ReadAsAsync<List<Topping>>();
+                    readTask.Wait();
+                    Toppings = readTask.Result;
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Server error. Please call 123-456-PIZZA for assistance");
+                }
+            }
+            return View(Toppings);
+        }
+
+        [HttpGet]
+        public IActionResult AllPizzas()
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(url);
+
+                var responseTask = client.GetAsync("Pizza"); // HTTP GET
+                responseTask.Wait();
+
+                var result = responseTask.Result; // This holds the output
+
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = result.Content.ReadAsAsync<List<Pizza>>();
+                    readTask.Wait();
+                    Pizzas = readTask.Result;
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Server error. Please call 123-456-PIZZA for assistance");
+                }
+            }
+            return View(Pizzas);
+        }
+
+        [HttpGet]
+        public IActionResult AllPizzaToppings()
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(url);
+
+                var responseTask = client.GetAsync("PizzaTopping"); // HTTP GET
+                responseTask.Wait();
+
+                var result = responseTask.Result; // This holds the output
+
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = result.Content.ReadAsAsync<List<PizzaTopping>>();
+                    readTask.Wait();
+                    PizzaToppings = readTask.Result;
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Server error. Please call 123-456-PizzaTopping for assistance");
+                }
+            }
+            return View(PizzaToppings);
+        }
     }
 }

@@ -1,0 +1,54 @@
+﻿@model List<PizzaBox.Client.Models.PizzaSize>
+
+@{
+    ViewData["Title"] = "PizzaSizes";
+}
+
+<h1>All PizzaSizes</h1>
+
+<p>
+    <a asp-action="Add">Create New PizzaSize</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Inches
+            </th>
+            <th>
+                Price
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PizzaSizeId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PizzaSizeName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PizzaSizeInches)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PizzaSizePrice)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.PizzaSizeId }) |
+                    @Html.ActionLink("Details", "GetById", new { id = item.PizzaSizeId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.PizzaSizeId })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,48 @@
+﻿@model List<PizzaBox.Client.Models.Crust>
+
+@{
+    ViewData["Title"] = "Crusts";
+}
+
+<h1>All Crusts</h1>
+
+<p>
+    <a asp-action="Add">Create New Crust</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Price
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CrustId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CrustName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CrustPrice)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.CrustId }) |
+                    @Html.ActionLink("Details", "GetById", new { id = item.CrustId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.CrustId })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

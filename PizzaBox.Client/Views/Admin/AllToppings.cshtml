@@ -1,0 +1,48 @@
+﻿@model List<PizzaBox.Client.Models.Topping>
+
+@{
+    ViewData["Title"] = "Toppings";
+}
+
+<h1>All Toppings</h1>
+
+<p>
+    <a asp-action="Add">Create New Topping</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Price
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ToppingId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ToppingName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ToppingPrice)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ToppingId }) |
+                    @Html.ActionLink("Details", "GetById", new { id = item.ToppingId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ToppingId })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
