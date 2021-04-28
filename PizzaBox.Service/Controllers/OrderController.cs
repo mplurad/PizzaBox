@@ -70,7 +70,6 @@ namespace PizzaBox.Service.Controllers
                 {
                     x.Cost += pizza.PizzaPrice;
                 }
-                x.Cost += x.StoreId;
                 _repository.AddOrder(x);
                 return NoContent();
             }

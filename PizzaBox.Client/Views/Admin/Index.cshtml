@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Admin Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">This is the admin page.</h1>
+    <h4>View, edit, and delete items in the tables below:</h4>
+    <h4>
+        <a class="nav-link text-dark" asp-controller="Admin" asp-action="AllCustomers">Customers</a>
+        <a class="nav-link text-dark" asp-controller="Admin" asp-action="AllStores">Stores</a>
+        <a class="nav-link text-dark" asp-controller="Admin" asp-action="AllOrders">Orders</a>
+        <a class="nav-link text-dark" asp-controller="Admin" asp-action="AllPizzaSizes">Pizza Sizes</a>
+        <a class="nav-link text-dark" asp-controller="Admin" asp-action="AllCrusts">Crusts</a>
+        <a class="nav-link text-dark" asp-controller="Admin" asp-action="AllToppings">Toppings</a>
+        <a class="nav-link text-dark" asp-controller="Admin" asp-action="AllPizzas">Pizzas</a>
+        <a class="nav-link text-dark" asp-controller="Admin" asp-action="AllPizzaToppings">Pizza Toppings</a>
+    </h4>
+    <p>The list above is based on the dependencies within the database.</p>
+</div>

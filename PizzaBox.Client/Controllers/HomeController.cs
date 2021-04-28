@@ -24,38 +24,6 @@ namespace PizzaBox.Client.Controllers
             return View();
         }
 
-        public List<Models.Store> Stores { get; set; }
-
-        // GET: /<controller>/
-        public IActionResult AllStores(string url = "https://localhost:5001/api/Store")
-        {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri(url);
-
-                var responseTask = client.GetAsync("");//"Store"); // HTTP GET
-                responseTask.Wait();
-
-                var result = responseTask.Result; // This holds the output
-
-                if (result.IsSuccessStatusCode)
-                {
-                    Console.WriteLine("Worked!");
-                    var readTask = result.Content.ReadAsAsync<List<Models.Store>>();
-                    readTask.Wait();
-                    Stores = readTask.Result;
-                }
-                else
-                {
-                    Console.WriteLine("Failed!");
-                    //Stores = Enumerable.Empty<Store>();
-                    //ModelState.AddModelError(string.Empty, "Server error. Please call 123-456-PIZZA for assistance");
-                }
-            }
-            return View(Stores);
-            //return View();
-        }
-
         public IActionResult Privacy()
         {
             return View();

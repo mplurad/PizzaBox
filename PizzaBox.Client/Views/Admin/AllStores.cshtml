@@ -9,16 +9,17 @@
 <h1>All Stores</h1>
 @*<partial name="_TimePartial" />*@
 <p>
+    @*~/Admin/Add*@
     <a asp-action="Add">Create New Store</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model[0].StoreId)
+                Store ID@*@Html.DisplayNameFor(model => model[0].StoreId)*@
             </th>
             <th>
-                @Html.DisplayNameFor(model => model[0].StoreLocation)
+                Store Location@*@Html.DisplayNameFor(model => model[0].StoreLocation)*@
             </th>
             <th></th>
         </tr>
@@ -34,6 +35,7 @@
                     @Html.DisplayFor(modelItem => item.StoreLocation)
                 </td>
                 <td>
+                    @*Text, Route/Route*@
                     @Html.ActionLink("Edit", "Edit", new { id = item.StoreId }) |
                     @Html.ActionLink("Details", "GetById", new { id = item.StoreId }) |
                     @Html.ActionLink("Delete", "Delete", new { id = item.StoreId })
