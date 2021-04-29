@@ -87,7 +87,7 @@ namespace PizzaBox.Client.Controllers
             {
                 client.BaseAddress = new Uri(url);
 
-                var responseTask = client.GetAsync("Customer"); // HTTP GET
+                var responseTask = client.GetAsync("Order"); // HTTP GET
                 responseTask.Wait();
 
                 var result = responseTask.Result; // This holds the output
