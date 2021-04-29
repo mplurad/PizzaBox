@@ -6,16 +6,170 @@ namespace PizzaBox.Testing.Tests
   public class StoreTests
   {
      [Fact]
-    public void Test_StoreName()
-    {/*
-      // arrange
-      var sut = new ChicagoStore();
+        public void Test1()
+        {
 
-      // act
-      var actual = sut.Name;
+            // arrange
+            var s = new AStore();
+            s.StoreId = 1;
+            s.StoreLocation = "hi";
 
-      // assert
-      Assert.True(actual == "ChicagoStore");*/
+            // act
+            var a = s.StoreId;
+            var d = s.StoreLocation;
+
+            // assert
+            Assert.True(a == 1);
+            Assert.True(d.Equals("hi"));
+
+        }
+
+        [Fact]
+        public void Test2()
+        {
+
+            // arrange
+            var s = new AStore();
+            s.StoreId = 1;
+            s.StoreLocation = "hi";
+
+            // act
+            var a = s.StoreId;
+            var d = s.StoreLocation;
+
+            // assert
+            Assert.True(a == 1);
+            Assert.True(d.Equals("hi"));
+
+        }
+
+        [Fact]
+        public void Test3()
+        {
+
+            // arrange
+            var s = new AStore();
+            s.StoreId = 1;
+            s.StoreLocation = "hi";
+
+            // act
+            var a = s.StoreId;
+            var d = s.StoreLocation;
+
+            // assert
+            Assert.True(a == 1);
+            Assert.True(d.Equals("hi"));
+
+        }
+
+        [Fact]
+        public void Test4()
+        {
+
+            // arrange
+            var s = new AStore();
+            s.StoreId = 1;
+            s.StoreLocation = "hi";
+
+            // act
+            var a = s.StoreId;
+            var d = s.StoreLocation;
+
+            // assert
+            Assert.True(a == 1);
+            Assert.True(d.Equals("hi"));
+
+        }
+
+        [Fact]
+        public void Test5()
+        {
+
+            // arrange
+            var s = new AStore();
+            s.StoreId = 1;
+            s.StoreLocation = "hi";
+
+            // act
+            var a = s.StoreId;
+            var d = s.StoreLocation;
+
+            // assert
+            Assert.True(a == 1);
+            Assert.True(d.Equals("hi"));
+
+        }
+        [Fact]
+        public void Test6()
+        {
+
+            // arrange
+            var s = new AStore();
+            s.StoreId = 1;
+            s.StoreLocation = "hi";
+
+            // act
+            var a = s.StoreId;
+            var d = s.StoreLocation;
+
+            // assert
+            Assert.True(a == 1);
+            Assert.True(d.Equals("hi"));
+
+        }
+        [Fact]
+        public void Test7()
+        {
+
+            // arrange
+            var s = new AStore();
+            s.StoreId = 1;
+            s.StoreLocation = "hi";
+
+            // act
+            var a = s.StoreId;
+            var d = s.StoreLocation;
+
+            // assert
+            Assert.True(a == 1);
+            Assert.True(d.Equals("hi"));
+
+        }
+        [Fact]
+        public void Test8()
+        {
+
+            // arrange
+            var s = new AStore();
+            s.StoreId = 1;
+            s.StoreLocation = "hi";
+
+            // act
+            var a = s.StoreId;
+            var d = s.StoreLocation;
+
+            // assert
+            Assert.True(a == 1);
+            Assert.True(d.Equals("hi"));
+
+        }
+        [Fact]
+        public void Test9()
+        {
+
+            // arrange
+            var s = new AStore();
+            s.StoreId = 1;
+            s.StoreLocation = "hi";
+
+            // act
+            var a = s.StoreId;
+            var d = s.StoreLocation;
+
+            // assert
+            Assert.True(a == 1);
+            Assert.True(d.Equals("hi"));
+
+        }
     }
-  }
 }
