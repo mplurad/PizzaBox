@@ -7,7 +7,7 @@ namespace PizzaBox.Client.Models
     {
         public Pizza()
         {
-            PizzaToppings = new HashSet<PizzaTopping>();
+            HashSet<PizzaTopping> PizzaToppings = new HashSet<PizzaTopping>();
         }
 
         public int PizzaId { get; set; }

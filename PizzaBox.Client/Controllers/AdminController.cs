@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http;
 using PizzaBox.Client.Models;
+using Newtonsoft.Json;
+using System.Text;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -23,10 +25,12 @@ namespace PizzaBox.Client.Controllers
         public List<Pizza> Pizzas { get; set; }
         public List<PizzaTopping> PizzaToppings { get; set; }
 
-        public IActionResult Index()
+        public ActionResult Index()
         {
             return View();
         }
+
+        /************************************ GET ***************************************/
 
         [HttpGet]
         public IActionResult AllCustomers()
@@ -234,6 +238,80 @@ namespace PizzaBox.Client.Controllers
                 }
             }
             return View(PizzaToppings);
+        }
+
+        /************************************ POST ***************************************/
+        public ActionResult AddStore()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddStore([Bind("StoreLocation")] Store x)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(url);
+
+                //HTTP POST
+                var postTask = client.PostAsJsonAsync<Store>("Store", x);
+                postTask.Wait();
+
+                var result = postTask.Result;
+                if (!result.IsSuccessStatusCode)
+                {
+                    ModelState.AddModelError(string.Empty, "Server error. Please call 123-456-PizzaTopping for assistance");
+                }
+            }
+            return RedirectToAction("AllStores");
+        }
+
+        public ActionResult EditStore(int id)
+        {
+            Store x = new Store();
+            x.StoreId = id;
+            return View(x);
+        }
+
+        [HttpPost]
+        public ActionResult EditStore(Store x)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(url);
+
+                //HTTP POST
+                var putTask = client.PutAsJsonAsync<Store>("Store", x);
+                putTask.Wait();
+
+                var result = putTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+
+                    return RedirectToAction("AllStores");
+                }
+            }
+            return View(x);
+        }
+
+        public ActionResult DeleteStore(int id)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(url);
+
+                //HTTP DELETE
+                var deleteTask = client.DeleteAsync("Store/" + id.ToString());
+                deleteTask.Wait();
+
+                var result = deleteTask.Result;
+                if (!result.IsSuccessStatusCode)
+                {
+                    // Give some feedback
+                    return RedirectToAction("AllStores");
+                }
+            }
+            return RedirectToAction("AllStores");
         }
     }
 }

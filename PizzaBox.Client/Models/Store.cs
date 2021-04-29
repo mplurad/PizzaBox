@@ -7,7 +7,7 @@ namespace PizzaBox.Client.Models
         {
         }
 
-        public byte StoreId { get; set; }
+        public int StoreId { get; set; }
         public string StoreLocation { get; set; }
 
         public override string ToString()

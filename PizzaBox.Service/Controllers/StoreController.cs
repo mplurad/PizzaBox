@@ -101,7 +101,7 @@ namespace PizzaBox.Service.Controllers
         {
             try
             {
-                if (_repository.GetCustomer(id) == null)
+                if (_repository.GetStore(id) == null)
                     return BadRequest("Store does not exist");
                 _repository.DeleteStore(id);
                 return NoContent();
