@@ -64,12 +64,12 @@ namespace PizzaBox.Service.Controllers
             {
                 if (x == null)
                     return BadRequest("Data is invalid or null");
-                x.OrderDate = DateTime.Now;
-                x.Cost = 0;
+                //x.OrderDate = DateTime.Now;
+                /*x.Cost = 0;
                 foreach (var pizza in x.Pizzas)
                 {
                     x.Cost += pizza.PizzaPrice;
-                }
+                }*/
                 _repository.AddOrder(x);
                 return NoContent();
             }

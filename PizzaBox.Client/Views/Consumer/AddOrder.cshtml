@@ -1,5 +1,26 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using PizzaBox.Client.Controllers
+@using System.Linq
+
 @{
+    ViewData["Title"] = "Create Order";
 }
+
+<h2>Order Details</h2>
+<p>
+    @{
+        if (ConsumerController.Pizzas.Count == 0)
+            {
+                <p>No pizzas added</p>
+        }
+        else
+        {
+            <p>You have @ConsumerController.Pizzas.Count pizzas with a total bill of
+    $@ConsumerController.Bill.</p>
+        }
+    }
+</p>
+<a asp-action="AddPizza">Add Custom Pizza</a><br />
+<a asp-action="Add1">1.) Add Vegetarian Pizza (5 veggies, large, thin crust) - $13.74</a><br />
+<a asp-action="Add2">2.) Add Hawaiian Pizza (pineapple and ham, large, thin crust) - $11.49</a><br />
+<a asp-action="Add3">3.) Add Meat Pizza (5 meats, large, thin crust) - $13.74(</a><br />
+<a asp-action="Finish">Proceed to Checkout</a>
