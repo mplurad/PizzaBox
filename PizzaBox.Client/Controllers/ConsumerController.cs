@@ -133,7 +133,7 @@ namespace PizzaBox.Client.Controllers
             // Pizza Toppings
             PizzaToppings = new List<PizzaTopping>();
 
-            return View();
+            return View(Customers);
         }
 
         public IActionResult AddCustomer()
@@ -238,16 +238,6 @@ namespace PizzaBox.Client.Controllers
             return View();
         }
 
-        /*public ActionResult Finish()
-        {
-            Order o = new Order();
-            o.Cost = Bill;
-            o.CustomerId = Customer.CustomerId;
-            o.StoreId = Store.StoreId;
-            o.OrderDate = DateTime.Now;
-            return Finish(o);
-        }*/
-
         public ActionResult Finish()
         {
             using (var client = new HttpClient())
@@ -267,7 +257,7 @@ namespace PizzaBox.Client.Controllers
                     ModelState.AddModelError(string.Empty, "Server error. Please call 123-456-PizzaTopping for assistance");
                 }
             }
-            return View("Index");
+            return View("AddOrder");
         }
     }
 }
