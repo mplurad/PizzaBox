@@ -9,12 +9,6 @@ namespace PizzaBox.Domain.Models
             //Pizzas = new HashSet<APizza>();
         }
 
-        /*public static ACrust SelectCrust(IRepository r)
-        {
-          ACrust crust = new ACrust();
-          return r.GetCrust(1);
-        }*/
-
         public int CrustId { get; set; }
         public string CrustName { get; set; }
         public decimal CrustPrice { get; set; }

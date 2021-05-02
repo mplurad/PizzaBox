@@ -18,14 +18,12 @@ namespace PizzaBox.Storing
         // GET ALL
         public List<ACustomer> GetAllCustomers()
         {
-            var customers = context.Customers;
-            return customers.Select(customer => mapper.Map(customer)).ToList();
+            return context.Customers.Select(mapper.Map).ToList();
         }
 
         public List<AStore> GetAllStores()
         {
-            var stores = context.Stores;
-            return stores.Select(store => mapper.Map(store)).ToList();
+            return context.Stores.Select(mapper.Map).ToList();
         }
 
         public List<AOrder> GetAllOrders()
@@ -61,17 +59,25 @@ namespace PizzaBox.Storing
         // GET BY ID
         public ACustomer GetCustomer(int id)
         {
-            return mapper.Map(context.Customers.Where(x => x.CustomerId == id).FirstOrDefault());
+            var customer = mapper.Map(context.Customers.Where(x => x.CustomerId == id).FirstOrDefault());
+            customer.Orders = context.Orders.Where(o => o.CustomerId == id).Select(mapper.Map).ToList();
+            return customer;
         }
 
         public AStore GetStore(int id)
         {
-            return mapper.Map(context.Stores.Where(x => x.StoreId == id).FirstOrDefault());
+            var store = mapper.Map(context.Stores.Where(x => x.StoreId == id).FirstOrDefault());
+            store.Orders = context.Orders.Where(o => o.StoreId == id).Select(mapper.Map).ToList();
+            return store;
         }
 
         public AOrder GetOrder(int id)
         {
-            return mapper.Map(context.Orders.Where(x => x.OrderId == id).FirstOrDefault());
+            var order = mapper.Map(context.Orders.Where(x => x.OrderId == id).FirstOrDefault());
+            order.Pizzas = context.Pizzas.Where(p => p.OrderId == id).Select(mapper.Map).ToList();
+            order.Store = GetStore(order.StoreId);
+            order.Customer = GetCustomer(order.CustomerId);
+            return order;
         }
 
         public APizzaSize GetPizzaSize(int id)
@@ -91,12 +97,20 @@ namespace PizzaBox.Storing
 
         public APizza GetPizza(int id)
         {
-            return mapper.Map(context.Pizzas.Where(x => x.PizzaId == id).FirstOrDefault());
+            var pizza = mapper.Map(context.Pizzas.Where(x => x.PizzaId == id).FirstOrDefault());
+            pizza.Crust = GetCrust(pizza.CrustId);
+            pizza.PizzaSize = GetPizzaSize(pizza.PizzaSizeId);
+            pizza.Order = GetOrder(pizza.OrderId);
+            pizza.PizzaToppings = context.PizzaToppings.Where(pt => pt.PizzaId == id).Select(mapper.Map).ToList();
+            return pizza;
         }
 
         public APizzaTopping GetPizzaTopping(int id)
         {
-            return mapper.Map(context.PizzaToppings.Where(x => x.PizzaToppingId == id).FirstOrDefault());
+            var pizzaTopping = mapper.Map(context.PizzaToppings.Where(x => x.PizzaToppingId == id).FirstOrDefault());
+            pizzaTopping.Pizza = GetPizza(pizzaTopping.PizzaId);
+            pizzaTopping.Topping = GetTopping(pizzaTopping.ToppingId);
+            return pizzaTopping;
         }
 
         // GET X BY Y
@@ -127,52 +141,68 @@ namespace PizzaBox.Storing
         }
 
         // POST
-        public void AddCustomer(ACustomer customer)
+        public int AddCustomer(ACustomer customer)
         {
-            context.Add(mapper.Map(customer));
+            var mapped = mapper.Map(customer);
+            context.Add(mapped);
             context.SaveChanges();
+            return mapped.CustomerId;
         }
 
-        public void AddStore(AStore store)
+        public int AddStore(AStore store)
         {
-            context.Add(mapper.Map(store));
+            var mappedStore = mapper.Map(store);
+            context.Add(mappedStore);
             context.SaveChanges();
+            return mappedStore.StoreId;
         }
 
-        public void AddOrder(AOrder order)
+        public int AddOrder(AOrder order)
         {
-            context.Add(mapper.Map(order));
+            var mappedOrder = mapper.Map(order);
+            context.Add(mappedOrder);
             context.SaveChanges();
+            return mappedOrder.OrderId;
         }
 
-        public void AddPizzaSize(APizzaSize pizzaSize)
+        public int AddPizzaSize(APizzaSize pizzaSize)
         {
-            context.Add(mapper.Map(pizzaSize));
+            var mapped = mapper.Map(pizzaSize);
+            context.Add(mapped);
             context.SaveChanges();
+            return mapped.PizzaSizeId;
         }
 
-        public void AddCrust(ACrust crust)
+        public int AddCrust(ACrust crust)
         {
-            context.Add(mapper.Map(crust));
+            var mapped = mapper.Map(crust);
+            context.Add(mapped);
             context.SaveChanges();
+            return mapped.CrustId;
         }
 
-        public void AddTopping(ATopping topping)
+        public int AddTopping(ATopping topping)
         {
-            context.Add(mapper.Map(topping));
+            var mapped = mapper.Map(topping);
+            context.Add(mapped);
             context.SaveChanges();
+            return mapped.ToppingId;
         }
 
-        public void AddPizza(APizza pizza)
+        public int AddPizza(APizza pizza)
         {
-            context.Add(mapper.Map(pizza));
+            var mappedPizza = mapper.Map(pizza);
+            context.Add(mappedPizza);
             context.SaveChanges();
+            return mappedPizza.PizzaId;
         }
 
-        public void AddPizzaTopping(APizzaTopping pizzaTopping)
+        public int AddPizzaTopping(APizzaTopping pizzaTopping)
         {
-            context.Add(mapper.Map(pizzaTopping));
+            var mapped = mapper.Map(pizzaTopping);
+            context.Add(mapped);
             context.SaveChanges();
+            return mapped.PizzaToppingId;
         }
 
         // PUT

@@ -8,14 +8,14 @@
 <h2>Order Details</h2>
 <p>
     @{
-        if (ConsumerController.Pizzas.Count == 0)
+        if (ConsumerController._order.Pizzas.Count == 0)
             {
                 <p>No pizzas added</p>
         }
         else
         {
-            <p>You have @ConsumerController.Pizzas.Count pizzas with a total bill of
-    $@ConsumerController.Bill.</p>
+            <p>You have @ConsumerController._order.Pizzas.Count pizzas with a total bill of
+    $@ConsumerController._order.Cost.</p>
         }
     }
 </p>

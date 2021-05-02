@@ -1,12 +1,12 @@
 ﻿@using PizzaBox.Client.Controllers
 @using System.Linq
-@model List<PizzaBox.Client.Models.Order>
+@model System.Collections.Generic.HashSet<Order>
 
 @{
-    ViewData["Title"] = $"{ConsumerController.Customer.CustomerFirstName} {ConsumerController.Customer.CustomerLastName}";
+    ViewData["Title"] = $"{ConsumerController._order.Customer.CustomerFirstName} {ConsumerController._order.Customer.CustomerLastName}";
 }
 
-<h6>Hello @ConsumerController.Customer.CustomerFirstName @ConsumerController.Customer.CustomerLastName!</h6>
+<h6>Hello @ConsumerController._order.Customer.CustomerFirstName @ConsumerController._order.Customer.CustomerLastName!</h6>
 
 @if (Model == null)
 {

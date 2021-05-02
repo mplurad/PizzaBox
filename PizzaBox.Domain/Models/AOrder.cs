@@ -16,8 +16,8 @@ namespace PizzaBox.Domain.Models
         public decimal? Cost { get; set; }
         public DateTime? OrderDate { get; set; }
 
-        //public virtual ACustomer Customer { get; set; }
-        //public virtual AStore Store { get; set; }
+        public virtual ACustomer Customer { get; set; }
+        public virtual AStore Store { get; set; }
         public virtual ICollection<APizza> Pizzas { get; set; }
     }
 }

@@ -11,5 +11,8 @@ namespace PizzaBox.Client.Models
         public int PizzaId { get; set; }
         public int ToppingId { get; set; }
         public int ToppingCount { get; set; }
+
+        public virtual Pizza Pizza { get; set; }
+        public virtual Topping Topping { get; set; }
     }
 }

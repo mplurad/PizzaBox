@@ -7,7 +7,7 @@ namespace PizzaBox.Domain.Models
         public int ToppingId { get; set; }
         public int ToppingCount { get; set; }
 
-        //public virtual APizza Pizza { get; set; }
-        //public virtual ATopping Topping { get; set; }
+        public virtual APizza Pizza { get; set; }
+        public virtual ATopping Topping { get; set; }
     }
 }

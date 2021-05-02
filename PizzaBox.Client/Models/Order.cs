@@ -15,6 +15,9 @@ namespace PizzaBox.Client.Models
         public int StoreId { get; set; }
         public decimal? Cost { get; set; }
         public DateTime? OrderDate { get; set; }
+
+        public virtual Customer Customer { get; set; }
+        public virtual Store Store { get; set; }
         public virtual ICollection<Pizza> Pizzas { get; set; }
     }
 }

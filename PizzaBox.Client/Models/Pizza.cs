@@ -7,7 +7,7 @@ namespace PizzaBox.Client.Models
     {
         public Pizza()
         {
-            HashSet<PizzaTopping> PizzaToppings = new HashSet<PizzaTopping>();
+            PizzaToppings = new HashSet<PizzaTopping>();
         }
 
         public int PizzaId { get; set; }
@@ -15,6 +15,10 @@ namespace PizzaBox.Client.Models
         public int CrustId { get; set; }
         public int PizzaSizeId { get; set; }
         public decimal PizzaPrice { get; set; }
+
+        public virtual Crust Crust { get; set; }
+        public virtual Order Order { get; set; }
+        public virtual PizzaSize PizzaSize { get; set; }
         public virtual ICollection<PizzaTopping> PizzaToppings { get; set; }
     }
 }

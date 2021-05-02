@@ -32,14 +32,14 @@ namespace PizzaBox.Domain
         List<ATopping> GetToppingsByPizza(int pizzaId);
 
         // POST
-        void AddCustomer(ACustomer customer);
-        void AddStore(AStore store);
-        void AddOrder(AOrder order);
-        void AddPizza(APizza pizza);
-        void AddPizzaSize(APizzaSize pizzaSize);
-        void AddTopping(ATopping topping);
-        void AddCrust(ACrust crust);
-        void AddPizzaTopping(APizzaTopping pizzaTopping);
+        int AddCustomer(ACustomer customer);
+        int AddStore(AStore store);
+        int AddOrder(AOrder order);
+        int AddPizza(APizza pizza);
+        int AddPizzaSize(APizzaSize pizzaSize);
+        int AddTopping(ATopping topping);
+        int AddCrust(ACrust crust);
+        int AddPizzaTopping(APizzaTopping pizzaTopping);
 
         // PUT
         void UpdateCustomer(ACustomer customer);

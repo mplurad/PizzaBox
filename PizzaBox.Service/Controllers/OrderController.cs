@@ -58,19 +58,23 @@ namespace PizzaBox.Service.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Consumes(MediaTypeNames.Application.Json)]
-        public IActionResult Post([FromBody] AOrder x)
+        public IActionResult Post([FromBody] AOrder order)
         {
             try
             {
-                if (x == null)
+                if (order == null)
                     return BadRequest("Data is invalid or null");
-                //x.OrderDate = DateTime.Now;
-                /*x.Cost = 0;
-                foreach (var pizza in x.Pizzas)
+                order.OrderId = _repository.AddOrder(order);
+                foreach (APizza p in order.Pizzas)
                 {
-                    x.Cost += pizza.PizzaPrice;
-                }*/
-                _repository.AddOrder(x);
+                    p.OrderId = order.OrderId;
+                    p.PizzaId = _repository.AddPizza(p);
+                    foreach(APizzaTopping pt in p.PizzaToppings)
+                    {
+                        pt.PizzaId = p.PizzaId;
+                        _repository.AddPizzaTopping(pt);
+                    }
+                }
                 return NoContent();
             }
             catch (Exception e)

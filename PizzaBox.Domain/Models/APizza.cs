@@ -17,9 +17,9 @@ namespace PizzaBox.Domain.Models
         public int PizzaSizeId { get; set; }
         public decimal PizzaPrice { get; set; }
 
-        //public virtual ACrust Crust { get; set; }
-        //public virtual AOrder Order { get; set; }
-        //public virtual APizzaSize PizzaSize { get; set; }
+        public virtual ACrust Crust { get; set; }
+        public virtual AOrder Order { get; set; }
+        public virtual APizzaSize PizzaSize { get; set; }
         public virtual ICollection<APizzaTopping> PizzaToppings { get; set; }
     }
 }

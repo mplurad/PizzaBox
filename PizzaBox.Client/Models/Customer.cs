@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace PizzaBox.Client.Models
 {
     public class Customer
     {
         public Customer()
         {
+            Orders = new HashSet<Order>();
         }
 
         public override string ToString()
@@ -22,5 +25,7 @@ namespace PizzaBox.Client.Models
         public string CustomerCardNumber { get; set; }
         public string CustomerCardDate { get; set; }
         public string CustomerCardCvv { get; set; }
+
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

@@ -14,25 +14,24 @@ namespace PizzaBox.Client.Controllers
     {
         public string url = "https://localhost:5001/api/";
 
+        public static Order _order { get; set; }
+
         public static List<Customer> Customers { get; set; }
-        public static List<Order> Orders { get; set; }
-        public static Customer Customer { get; set; }
-        public static Store Store { get; set; }
-        public static List<Pizza> Pizzas { get; set; }
         public static List<Store> Stores { get; set; }
-        public static List<PizzaTopping> PizzaToppings { get; set; }
         public static List<Topping> Toppings { get; set; }
         public static List<PizzaSize> PizzaSizes { get; set; }
         public static List<Crust> Crusts { get; set; }
-        public static decimal Bill { get; set; }
+
+        public ConsumerController()
+        {
+        }
 
         [HttpGet]
         public IActionResult Index()
         {
-            Bill = 0;
-
-            Store = new Store();
-            Store.StoreId = 3;
+            _order = new Order();
+            _order.StoreId = 3;
+            _order.Cost = 0;
 
             // Customers
             using (var client = new HttpClient())
@@ -69,9 +68,6 @@ namespace PizzaBox.Client.Controllers
                     Stores = readTask.Result;
                 }
             }
-
-            // Orders
-            Orders = new List<Order>();
 
             // PizzaSizes
             using (var client = new HttpClient())
@@ -127,12 +123,6 @@ namespace PizzaBox.Client.Controllers
                 }
             }
 
-            // Pizzas
-            Pizzas = new List<Pizza>();
-
-            // Pizza Toppings
-            PizzaToppings = new List<PizzaTopping>();
-
             return View(Customers);
         }
 
@@ -162,10 +152,12 @@ namespace PizzaBox.Client.Controllers
                 {
                     var readTask = result.Content.ReadAsAsync<Customer>();
                     readTask.Wait();
-                    Customer = readTask.Result;
+                    _order.Customer = readTask.Result;
+                    _order.CustomerId = _order.Customer.CustomerId;
                 }
             }
 
+            /*
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(url);
@@ -189,9 +181,9 @@ namespace PizzaBox.Client.Controllers
                         }
                     }
                 }
-            }
+            }*/
 
-            return View(Orders);
+            return View(_order.Customer.Orders);
         }
 
         [HttpGet]
@@ -206,8 +198,30 @@ namespace PizzaBox.Client.Controllers
             pizza.CrustId = 1;
             pizza.PizzaSizeId = 3;
             pizza.PizzaPrice = (decimal) 13.74;
-            Pizzas.Add(pizza);
-            Bill += pizza.PizzaPrice;
+
+            PizzaTopping pizzaTopping = new PizzaTopping();
+            pizzaTopping.ToppingId = 13;
+            pizzaTopping.ToppingCount = 1;
+            pizza.PizzaToppings.Add(pizzaTopping);
+
+            pizzaTopping.ToppingId = 14;
+            pizzaTopping.ToppingCount = 1;
+            pizza.PizzaToppings.Add(pizzaTopping);
+
+            pizzaTopping.ToppingId = 15;
+            pizzaTopping.ToppingCount = 1;
+            pizza.PizzaToppings.Add(pizzaTopping);
+
+            pizzaTopping.ToppingId = 16;
+            pizzaTopping.ToppingCount = 1;
+            pizza.PizzaToppings.Add(pizzaTopping);
+
+            pizzaTopping.ToppingId = 17;
+            pizzaTopping.ToppingCount = 1;
+            pizza.PizzaToppings.Add(pizzaTopping);
+
+            _order.Pizzas.Add(pizza);
+            _order.Cost += pizza.PizzaPrice;
             return View("AddOrder");
         }
 
@@ -217,8 +231,18 @@ namespace PizzaBox.Client.Controllers
             pizza.CrustId = 1;
             pizza.PizzaSizeId = 3;
             pizza.PizzaPrice = (decimal)11.49;
-            Pizzas.Add(pizza);
-            Bill += pizza.PizzaPrice;
+
+            PizzaTopping pizzaTopping = new PizzaTopping();
+            pizzaTopping.ToppingId = 19;
+            pizzaTopping.ToppingCount = 1;
+            pizza.PizzaToppings.Add(pizzaTopping);
+
+            pizzaTopping.ToppingId = 8;
+            pizzaTopping.ToppingCount = 1;
+            pizza.PizzaToppings.Add(pizzaTopping);
+
+            _order.Pizzas.Add(pizza);
+            _order.Cost += pizza.PizzaPrice;
             return View("AddOrder");
         }
 
@@ -228,8 +252,30 @@ namespace PizzaBox.Client.Controllers
             pizza.CrustId = 1;
             pizza.PizzaSizeId = 3;
             pizza.PizzaPrice = (decimal)13.74;
-            Pizzas.Add(pizza);
-            Bill += pizza.PizzaPrice;
+
+            PizzaTopping pizzaTopping = new PizzaTopping();
+            pizzaTopping.ToppingId = 4;
+            pizzaTopping.ToppingCount = 1;
+            pizza.PizzaToppings.Add(pizzaTopping);
+
+            pizzaTopping.ToppingId = 5;
+            pizzaTopping.ToppingCount = 1;
+            pizza.PizzaToppings.Add(pizzaTopping);
+
+            pizzaTopping.ToppingId = 6;
+            pizzaTopping.ToppingCount = 1;
+            pizza.PizzaToppings.Add(pizzaTopping);
+
+            pizzaTopping.ToppingId = 7;
+            pizzaTopping.ToppingCount = 1;
+            pizza.PizzaToppings.Add(pizzaTopping);
+
+            pizzaTopping.ToppingId = 8;
+            pizzaTopping.ToppingCount = 1;
+            pizza.PizzaToppings.Add(pizzaTopping);
+
+            _order.Pizzas.Add(pizza);
+            _order.Cost += pizza.PizzaPrice;
             return View("AddOrder");
         }
 
@@ -243,12 +289,8 @@ namespace PizzaBox.Client.Controllers
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(url);
-                Order o = new Order();
-                o.Cost = Bill;
-                o.CustomerId = Customer.CustomerId;
-                o.StoreId = Store.StoreId;
-                o.OrderDate = DateTime.Now;
-                var postTask = client.PostAsJsonAsync<Order>("Order", o);
+                _order.OrderDate = DateTime.Now;
+                var postTask = client.PostAsJsonAsync<Order>("Order", _order);
                 postTask.Wait();
 
                 var result = postTask.Result;
