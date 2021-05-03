@@ -1,0 +1,32 @@
+﻿@model List<PizzaBox.Client.Models.Store>
+
+@{
+    ViewData["Title"] = "Stores";
+}
+
+<h1>Select a Store</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Store Location
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StoreLocation)
+                </td>
+                <td>
+                    @Html.ActionLink("Select", "AddPizza", new { id = item.StoreId })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

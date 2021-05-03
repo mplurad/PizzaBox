@@ -6,9 +6,6 @@
 
 <h1>All Pizza Toppings</h1>
 
-<p>
-    <a asp-action="Add">Create New Pizza Topping</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -24,7 +21,6 @@
             <th>
                 Topping Count
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -42,11 +38,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ToppingCount)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.PizzaToppingId }) |
-                @Html.ActionLink("Details", "GetById", new { id = item.PizzaToppingId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.PizzaToppingId })
             </td>
         </tr>
         }

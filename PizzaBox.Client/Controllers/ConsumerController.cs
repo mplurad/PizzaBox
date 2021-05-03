@@ -15,6 +15,7 @@ namespace PizzaBox.Client.Controllers
         public string url = "https://localhost:5001/api/";
 
         public static Order _order { get; set; }
+        public static Pizza _pizza { get; set; }
 
         public static List<Customer> Customers { get; set; }
         public static List<Store> Stores { get; set; }
@@ -26,11 +27,12 @@ namespace PizzaBox.Client.Controllers
         {
         }
 
+        /*************** INITIALIZE EVERYTHING AND DISPLAY CUSTOMERS *****************/
+
         [HttpGet]
         public IActionResult Index()
         {
             _order = new Order();
-            _order.StoreId = 3;
             _order.Cost = 0;
 
             // Customers
@@ -131,11 +133,6 @@ namespace PizzaBox.Client.Controllers
             return View();
         }
 
-        public IActionResult GetCustomer()
-        {
-            return View();
-        }
-
         [HttpGet]
         public IActionResult DisplayCustomer(int id)
         {
@@ -157,137 +154,176 @@ namespace PizzaBox.Client.Controllers
                 }
             }
 
-            /*
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri(url);
-
-                var responseTask = client.GetAsync("Order");
-                responseTask.Wait();
-
-                var result = responseTask.Result;
-
-                if (result.IsSuccessStatusCode)
-                {
-                    var readTask = result.Content.ReadAsAsync<List<Order>>();
-                    readTask.Wait();
-                    var orders = readTask.Result;
-                    if (orders != null)
-                    {
-                        foreach (Order order in orders)
-                        {
-                            if (order.CustomerId == id)
-                                Orders.Add(order);
-                        }
-                    }
-                }
-            }*/
-
             return View(_order.Customer.Orders);
         }
 
-        [HttpGet]
-        public IActionResult AddOrder()
+        /**************************** BEGIN ORDER ************************************/
+
+        public IActionResult SelectStore()
         {
+            return View(Stores);
+        }
+
+        public IActionResult AddPizza(int id)
+        {
+            _order.StoreId = id;
+            _pizza = new Pizza();
+            _pizza.PizzaPrice = 0;
             return View();
         }
 
+        /***************************** PRESET PIZZAS *********************************/
+
         public IActionResult Add1()
         {
-            Pizza pizza = new Pizza();
-            pizza.CrustId = 1;
-            pizza.PizzaSizeId = 3;
-            pizza.PizzaPrice = (decimal) 13.74;
+            _pizza.CrustId = 1;
+            _pizza.PizzaSizeId = 3;
+            _pizza.PizzaPrice = (decimal) 13.74;
 
             PizzaTopping pizzaTopping = new PizzaTopping();
             pizzaTopping.ToppingId = 13;
             pizzaTopping.ToppingCount = 1;
-            pizza.PizzaToppings.Add(pizzaTopping);
+            _pizza.PizzaToppings.Add(pizzaTopping);
 
             pizzaTopping.ToppingId = 14;
             pizzaTopping.ToppingCount = 1;
-            pizza.PizzaToppings.Add(pizzaTopping);
+            _pizza.PizzaToppings.Add(pizzaTopping);
 
             pizzaTopping.ToppingId = 15;
             pizzaTopping.ToppingCount = 1;
-            pizza.PizzaToppings.Add(pizzaTopping);
+            _pizza.PizzaToppings.Add(pizzaTopping);
 
             pizzaTopping.ToppingId = 16;
             pizzaTopping.ToppingCount = 1;
-            pizza.PizzaToppings.Add(pizzaTopping);
+            _pizza.PizzaToppings.Add(pizzaTopping);
 
             pizzaTopping.ToppingId = 17;
             pizzaTopping.ToppingCount = 1;
-            pizza.PizzaToppings.Add(pizzaTopping);
+            _pizza.PizzaToppings.Add(pizzaTopping);
 
-            _order.Pizzas.Add(pizza);
-            _order.Cost += pizza.PizzaPrice;
-            return View("AddOrder");
+            _order.Pizzas.Add(_pizza);
+            _order.Cost += _pizza.PizzaPrice;
+            return View("AddPizza");
         }
 
         public IActionResult Add2()
         {
-            Pizza pizza = new Pizza();
-            pizza.CrustId = 1;
-            pizza.PizzaSizeId = 3;
-            pizza.PizzaPrice = (decimal)11.49;
+            _pizza.CrustId = 1;
+            _pizza.PizzaSizeId = 3;
+            _pizza.PizzaPrice = (decimal)11.49;
 
             PizzaTopping pizzaTopping = new PizzaTopping();
             pizzaTopping.ToppingId = 19;
             pizzaTopping.ToppingCount = 1;
-            pizza.PizzaToppings.Add(pizzaTopping);
+            _pizza.PizzaToppings.Add(pizzaTopping);
 
             pizzaTopping.ToppingId = 8;
             pizzaTopping.ToppingCount = 1;
-            pizza.PizzaToppings.Add(pizzaTopping);
+            _pizza.PizzaToppings.Add(pizzaTopping);
 
-            _order.Pizzas.Add(pizza);
-            _order.Cost += pizza.PizzaPrice;
-            return View("AddOrder");
+            _order.Pizzas.Add(_pizza);
+            _order.Cost += _pizza.PizzaPrice;
+            return View("AddPizza");
         }
 
         public IActionResult Add3()
         {
-            Pizza pizza = new Pizza();
-            pizza.CrustId = 1;
-            pizza.PizzaSizeId = 3;
-            pizza.PizzaPrice = (decimal)13.74;
+            _pizza.CrustId = 1;
+            _pizza.PizzaSizeId = 3;
+            _pizza.PizzaPrice = (decimal)13.74;
 
             PizzaTopping pizzaTopping = new PizzaTopping();
             pizzaTopping.ToppingId = 4;
             pizzaTopping.ToppingCount = 1;
-            pizza.PizzaToppings.Add(pizzaTopping);
+            _pizza.PizzaToppings.Add(pizzaTopping);
 
             pizzaTopping.ToppingId = 5;
             pizzaTopping.ToppingCount = 1;
-            pizza.PizzaToppings.Add(pizzaTopping);
+            _pizza.PizzaToppings.Add(pizzaTopping);
 
             pizzaTopping.ToppingId = 6;
             pizzaTopping.ToppingCount = 1;
-            pizza.PizzaToppings.Add(pizzaTopping);
+            _pizza.PizzaToppings.Add(pizzaTopping);
 
             pizzaTopping.ToppingId = 7;
             pizzaTopping.ToppingCount = 1;
-            pizza.PizzaToppings.Add(pizzaTopping);
+            _pizza.PizzaToppings.Add(pizzaTopping);
 
             pizzaTopping.ToppingId = 8;
             pizzaTopping.ToppingCount = 1;
-            pizza.PizzaToppings.Add(pizzaTopping);
+            _pizza.PizzaToppings.Add(pizzaTopping);
 
-            _order.Pizzas.Add(pizza);
-            _order.Cost += pizza.PizzaPrice;
-            return View("AddOrder");
+            _order.Pizzas.Add(_pizza);
+            _order.Cost += _pizza.PizzaPrice;
+            return View("AddPizza");
         }
 
-        public ActionResult AddStore()
+        /************************** CUSTOM PIZZA ***********************************/
+        
+        public IActionResult SelectPizzaSize()
         {
             return View();
         }
 
-        public ActionResult Finish()
+        public IActionResult SelectCrust(int id)
+        {
+            _pizza.PizzaSizeId = id;
+            _pizza.PizzaPrice += PizzaSizes.Where(ps => ps.PizzaSizeId == id).First().PizzaSizePrice;
+            return View();
+        }
+
+        public IActionResult SetCrust(int id)
+        {
+            _pizza.CrustId = id;
+            _pizza.PizzaPrice += Crusts.Where(c => c.CrustId == id).First().CrustPrice;
+            return View("SelectTopping");
+        }
+
+        public IActionResult SelectTopping(int id = 0)
+        {
+            if (id == 0)
+                return View();
+            foreach (PizzaTopping pt in _pizza.PizzaToppings)
+            {
+                if (pt.ToppingId == id)
+                {
+                    pt.ToppingCount += 1;
+                    _pizza.PizzaPrice += pt.Topping.ToppingPrice;
+                    return View();
+                }
+            }
+
+            foreach (Topping t in Toppings)
+            {
+                if (t.ToppingId == id)
+                {
+                    _pizza.PizzaPrice += t.ToppingPrice;
+                    PizzaTopping pizzaTopping = new PizzaTopping();
+                    pizzaTopping.Topping = t;
+                    pizzaTopping.ToppingCount = 1;
+                    pizzaTopping.ToppingId = id;
+                    _pizza.PizzaToppings.Add(pizzaTopping);
+                    return View();
+                }
+            }
+            return View();
+        }
+
+        public IActionResult FinishPizza()
+        {
+            _order.Pizzas.Add(_pizza);
+            _order.Cost += _pizza.PizzaPrice;
+            return View("AddPizza");
+        }
+
+        
+        /********************************* POST ORDER ****************************/
+
+        public IActionResult Finish()
         {
             using (var client = new HttpClient())
             {
+
                 client.BaseAddress = new Uri(url);
                 _order.OrderDate = DateTime.Now;
                 var postTask = client.PostAsJsonAsync<Order>("Order", _order);
@@ -299,7 +335,7 @@ namespace PizzaBox.Client.Controllers
                     ModelState.AddModelError(string.Empty, "Server error. Please call 123-456-PizzaTopping for assistance");
                 }
             }
-            return View("AddOrder");
+            return View();
         }
     }
 }

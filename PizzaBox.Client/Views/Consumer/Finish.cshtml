@@ -1,0 +1,11 @@
+﻿@using PizzaBox.Client.Controllers
+
+@{
+    ViewData["Title"] = "Order Completed";
+}
+
+<h1>Order Completed!</h1>
+Here is your order summary: <br />
+ 
+<a asp-action="DisplayCustomer" asp-route-id="@ConsumerController._order.CustomerId">View all orders</a><br />
+<a asp-action="Index">Log out</a>

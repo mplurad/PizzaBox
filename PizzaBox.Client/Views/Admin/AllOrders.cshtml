@@ -6,9 +6,6 @@
 
 <h1>All Orders</h1>
 
-<p>
-    <a asp-action="Add">Create New Order</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -48,11 +45,6 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.OrderDate)
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.OrderId }) |
-                    @Html.ActionLink("Details", "GetById", new { id = item.OrderId }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.OrderId })
-                </td>
             </tr>
         }
     </tbody>

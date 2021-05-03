@@ -1,0 +1,43 @@
+﻿@using PizzaBox.Client.Controllers
+
+@{
+    ViewData["Title"] = "Pizza Sizes";
+}
+
+<h1>Select a pizza size</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Number of Inches
+            </th>
+            <th>
+                Price
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ConsumerController.PizzaSizes)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PizzaSizeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PizzaSizeInches)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PizzaSizePrice)
+            </td>
+            <td>
+                @Html.ActionLink("Select", "SelectCrust", new { id = item.PizzaSizeId })
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
