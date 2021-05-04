@@ -61,6 +61,9 @@ namespace PizzaBox.Storing
         {
             var customer = mapper.Map(context.Customers.Where(x => x.CustomerId == id).FirstOrDefault());
             customer.Orders = context.Orders.Where(o => o.CustomerId == id).Select(mapper.Map).ToList();
+            //customer.Orders.Select(o => o.Pizzas = context.Pizzas.Where(p => p.OrderId == o.OrderId).Select(mapper.Map).ToList());
+            //customer.Orders.Select(o => o.Pizzas.Select(p => p.PizzaToppings = context.PizzaToppings.Where(pt => pt.PizzaId == p.PizzaId).Select(mapper.Map).ToList()));
+            //customer.Orders.Select(o => o.Pizzas.Select(p => p.PizzaToppings.Select(pt => pt.Topping = mapper.Map(context.Toppings.Find(pt.ToppingId)))));
             return customer;
         }
 
@@ -102,6 +105,10 @@ namespace PizzaBox.Storing
             pizza.PizzaSize = GetPizzaSize(pizza.PizzaSizeId);
             pizza.Order = GetOrder(pizza.OrderId);
             pizza.PizzaToppings = context.PizzaToppings.Where(pt => pt.PizzaId == id).Select(mapper.Map).ToList();
+            foreach (APizzaTopping pt in pizza.PizzaToppings)
+            {
+                pt.Topping = GetTopping(pt.ToppingId);
+            }
             return pizza;
         }
 

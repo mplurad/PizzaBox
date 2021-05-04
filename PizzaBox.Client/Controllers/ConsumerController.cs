@@ -29,6 +29,11 @@ namespace PizzaBox.Client.Controllers
         public static List<PizzaSize> PizzaSizes { get; set; }
         public static List<Crust> Crusts { get; set; }
 
+        // Display
+        public static Order d_order { get; set; }
+        public static ICollection<Pizza> d_pizzas { get; set; }
+        public static ICollection<PizzaTopping> d_pizzaToppings { get; set; }
+
         public ConsumerController()
         {
         }
@@ -167,7 +172,51 @@ namespace PizzaBox.Client.Controllers
         [HttpGet]
         public IActionResult DisplayOrder(int id)
         {
-            return View(_order.Customer.Orders.Where(o => o.OrderId == id).First());
+            d_order = new Order();
+            d_pizzas = new HashSet<Pizza>();
+            d_pizzaToppings = new HashSet<PizzaTopping>();
+
+            // Order
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(url);
+
+                var responseTask = client.GetAsync("Order/" + id.ToString());
+                responseTask.Wait();
+
+                var result = responseTask.Result;
+
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = result.Content.ReadAsAsync<Order>();
+                    readTask.Wait();
+                    d_order = readTask.Result;
+                }
+            }
+
+            foreach (Pizza pizza in d_order.Pizzas)
+            {
+                // Pizza
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(url);
+
+                    var responseTask = client.GetAsync("Pizza/" + pizza.PizzaId.ToString());
+                    responseTask.Wait();
+
+                    var result = responseTask.Result;
+
+                    if (result.IsSuccessStatusCode)
+                    {
+                        var readTask = result.Content.ReadAsAsync<Pizza>();
+                        readTask.Wait();
+                        d_pizzas.Add(readTask.Result);
+                    }
+                }
+            }
+
+            //return View(_order.Customer.Orders.Where(o => o.OrderId == id).First());
+            return View();
         }
 
         /**************************** BEGIN ORDER ************************************/
