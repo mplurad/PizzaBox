@@ -4,45 +4,52 @@
     ViewData["Title"] = "Toppings";
 }
 
-<h1>Select your topping(s)</h1>
+<h1>Select your toppings - 2 to 5 toppings only</h1>
 
 <p>
     @{int totalToppings = 0;}
-    @foreach (PizzaTopping pt in ConsumerController._pizza.PizzaToppings)
+    @foreach (PizzaTopping pt in ConsumerController._PizzaToppings)
     {
         totalToppings += pt.ToppingCount;
     }
-    
+
     You have @totalToppings toppings with a pizza price of
-    $@ConsumerController._pizza.PizzaPrice.
+    $@ConsumerController._pizzaPrice.
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Name
-            </th>
-            <th>
-                Price
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in ConsumerController.Toppings)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ToppingName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ToppingPrice)
-                </td>
-                <td>
-                    @Html.ActionLink("Select", "SelectTopping", new { id = item.ToppingId })
-                </td>
-            </tr>
-        }
-    </tbody>
+@if (totalToppings >= 2 && totalToppings <= 5)
+{
     <a asp-action="FinishPizza">Finish Pizza</a>
-</table>
+}
+
+@if (totalToppings < 5)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Price
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ConsumerController.Toppings)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ToppingName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ToppingPrice)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Select", "SelectTopping", new { id = item.ToppingId })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

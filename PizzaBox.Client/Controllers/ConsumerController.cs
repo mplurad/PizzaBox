@@ -15,7 +15,13 @@ namespace PizzaBox.Client.Controllers
         public string url = "https://localhost:5001/api/";
 
         public static Order _order { get; set; }
-        public static Pizza _pizza { get; set; }
+
+        public static int _crustId { get; set; }
+        public static int _pizzaSizeId { get; set; }
+        public static Crust _crust { get; set; }
+        public static PizzaSize _pizzaSize { get; set; }
+        public static decimal _pizzaPrice { get; set; }
+        public static ICollection<PizzaTopping> _PizzaToppings { get; set; }
 
         public static List<Customer> Customers { get; set; }
         public static List<Store> Stores { get; set; }
@@ -34,6 +40,7 @@ namespace PizzaBox.Client.Controllers
         {
             _order = new Order();
             _order.Cost = 0;
+            _PizzaToppings = new HashSet<PizzaTopping>();
 
             // Customers
             using (var client = new HttpClient())
@@ -157,6 +164,12 @@ namespace PizzaBox.Client.Controllers
             return View(_order.Customer.Orders);
         }
 
+        [HttpGet]
+        public IActionResult DisplayOrder(int id)
+        {
+            return View(_order.Customer.Orders.Where(o => o.OrderId == id).First());
+        }
+
         /**************************** BEGIN ORDER ************************************/
 
         public IActionResult SelectStore()
@@ -167,8 +180,14 @@ namespace PizzaBox.Client.Controllers
         public IActionResult AddPizza(int id)
         {
             _order.StoreId = id;
-            _pizza = new Pizza();
-            _pizza.PizzaPrice = 0;
+
+            _crustId = 0;
+            _pizzaSizeId = 0;
+            _pizzaPrice = 0;
+            _crust = null;
+            _pizzaSize = null;
+            _PizzaToppings.Clear();
+
             return View();
         }
 
@@ -176,85 +195,115 @@ namespace PizzaBox.Client.Controllers
 
         public IActionResult Add1()
         {
-            _pizza.CrustId = 1;
-            _pizza.PizzaSizeId = 3;
-            _pizza.PizzaPrice = (decimal) 13.74;
+            Pizza pizza = new Pizza();
+            pizza.CrustId = 1;
+            pizza.PizzaSizeId = 3;
+            pizza.PizzaPrice = (decimal) 13.74;
+            pizza.PizzaSize = PizzaSizes.Where(ps => ps.PizzaSizeId == pizza.PizzaSizeId).First();
+            pizza.Crust = Crusts.Where(c => c.CrustId == pizza.CrustId).First();
 
             PizzaTopping pizzaTopping = new PizzaTopping();
             pizzaTopping.ToppingId = 13;
             pizzaTopping.ToppingCount = 1;
-            _pizza.PizzaToppings.Add(pizzaTopping);
+            pizzaTopping.Topping = Toppings.Where(t => t.ToppingId == pizzaTopping.ToppingId).First();
+            pizza.PizzaToppings.Add(pizzaTopping);
 
+            pizzaTopping = new PizzaTopping();
             pizzaTopping.ToppingId = 14;
             pizzaTopping.ToppingCount = 1;
-            _pizza.PizzaToppings.Add(pizzaTopping);
+            pizzaTopping.Topping = Toppings.Where(t => t.ToppingId == pizzaTopping.ToppingId).First();
+            pizza.PizzaToppings.Add(pizzaTopping);
 
+            pizzaTopping = new PizzaTopping();
             pizzaTopping.ToppingId = 15;
             pizzaTopping.ToppingCount = 1;
-            _pizza.PizzaToppings.Add(pizzaTopping);
+            pizzaTopping.Topping = Toppings.Where(t => t.ToppingId == pizzaTopping.ToppingId).First();
+            pizza.PizzaToppings.Add(pizzaTopping);
 
+            pizzaTopping = new PizzaTopping();
             pizzaTopping.ToppingId = 16;
             pizzaTopping.ToppingCount = 1;
-            _pizza.PizzaToppings.Add(pizzaTopping);
+            pizzaTopping.Topping = Toppings.Where(t => t.ToppingId == pizzaTopping.ToppingId).First();
+            pizza.PizzaToppings.Add(pizzaTopping);
 
+            pizzaTopping = new PizzaTopping();
             pizzaTopping.ToppingId = 17;
             pizzaTopping.ToppingCount = 1;
-            _pizza.PizzaToppings.Add(pizzaTopping);
+            pizzaTopping.Topping = Toppings.Where(t => t.ToppingId == pizzaTopping.ToppingId).First();
+            pizza.PizzaToppings.Add(pizzaTopping);
 
-            _order.Pizzas.Add(_pizza);
-            _order.Cost += _pizza.PizzaPrice;
+            _order.Pizzas.Add(pizza);
+            _order.Cost += pizza.PizzaPrice;
             return View("AddPizza");
         }
 
         public IActionResult Add2()
         {
-            _pizza.CrustId = 1;
-            _pizza.PizzaSizeId = 3;
-            _pizza.PizzaPrice = (decimal)11.49;
+            Pizza pizza = new Pizza();
+            pizza.CrustId = 1;
+            pizza.PizzaSizeId = 3;
+            pizza.PizzaPrice = (decimal)11.49;
+            pizza.PizzaSize = PizzaSizes.Where(ps => ps.PizzaSizeId == pizza.PizzaSizeId).First();
+            pizza.Crust = Crusts.Where(c => c.CrustId == pizza.CrustId).First();
 
             PizzaTopping pizzaTopping = new PizzaTopping();
             pizzaTopping.ToppingId = 19;
             pizzaTopping.ToppingCount = 1;
-            _pizza.PizzaToppings.Add(pizzaTopping);
+            pizzaTopping.Topping = Toppings.Where(t => t.ToppingId == pizzaTopping.ToppingId).First();
+            pizza.PizzaToppings.Add(pizzaTopping);
 
+            pizzaTopping = new PizzaTopping();
             pizzaTopping.ToppingId = 8;
             pizzaTopping.ToppingCount = 1;
-            _pizza.PizzaToppings.Add(pizzaTopping);
+            pizzaTopping.Topping = Toppings.Where(t => t.ToppingId == pizzaTopping.ToppingId).First();
+            pizza.PizzaToppings.Add(pizzaTopping);
 
-            _order.Pizzas.Add(_pizza);
-            _order.Cost += _pizza.PizzaPrice;
+            _order.Pizzas.Add(pizza);
+            _order.Cost += pizza.PizzaPrice;
             return View("AddPizza");
         }
 
         public IActionResult Add3()
         {
-            _pizza.CrustId = 1;
-            _pizza.PizzaSizeId = 3;
-            _pizza.PizzaPrice = (decimal)13.74;
+            Pizza pizza = new Pizza();
+            pizza.CrustId = 1;
+            pizza.PizzaSizeId = 3;
+            pizza.PizzaPrice = (decimal)13.74;
+            pizza.PizzaSize = PizzaSizes.Where(ps => ps.PizzaSizeId == pizza.PizzaSizeId).First();
+            pizza.Crust = Crusts.Where(c => c.CrustId == pizza.CrustId).First();
 
             PizzaTopping pizzaTopping = new PizzaTopping();
             pizzaTopping.ToppingId = 4;
             pizzaTopping.ToppingCount = 1;
-            _pizza.PizzaToppings.Add(pizzaTopping);
+            pizzaTopping.Topping = Toppings.Where(t => t.ToppingId == pizzaTopping.ToppingId).First();
+            pizza.PizzaToppings.Add(pizzaTopping);
 
+            pizzaTopping = new PizzaTopping();
             pizzaTopping.ToppingId = 5;
             pizzaTopping.ToppingCount = 1;
-            _pizza.PizzaToppings.Add(pizzaTopping);
+            pizzaTopping.Topping = Toppings.Where(t => t.ToppingId == pizzaTopping.ToppingId).First();
+            pizza.PizzaToppings.Add(pizzaTopping);
 
+            pizzaTopping = new PizzaTopping();
             pizzaTopping.ToppingId = 6;
             pizzaTopping.ToppingCount = 1;
-            _pizza.PizzaToppings.Add(pizzaTopping);
+            pizzaTopping.Topping = Toppings.Where(t => t.ToppingId == pizzaTopping.ToppingId).First();
+            pizza.PizzaToppings.Add(pizzaTopping);
 
+            pizzaTopping = new PizzaTopping();
             pizzaTopping.ToppingId = 7;
             pizzaTopping.ToppingCount = 1;
-            _pizza.PizzaToppings.Add(pizzaTopping);
+            pizzaTopping.Topping = Toppings.Where(t => t.ToppingId == pizzaTopping.ToppingId).First();
+            pizza.PizzaToppings.Add(pizzaTopping);
 
+            pizzaTopping = new PizzaTopping();
             pizzaTopping.ToppingId = 8;
             pizzaTopping.ToppingCount = 1;
-            _pizza.PizzaToppings.Add(pizzaTopping);
+            pizzaTopping.Topping = Toppings.Where(t => t.ToppingId == pizzaTopping.ToppingId).First();
+            pizza.PizzaToppings.Add(pizzaTopping);
 
-            _order.Pizzas.Add(_pizza);
-            _order.Cost += _pizza.PizzaPrice;
+            _order.Pizzas.Add(pizza);
+            _order.Cost += pizza.PizzaPrice;
             return View("AddPizza");
         }
 
@@ -267,15 +316,17 @@ namespace PizzaBox.Client.Controllers
 
         public IActionResult SelectCrust(int id)
         {
-            _pizza.PizzaSizeId = id;
-            _pizza.PizzaPrice += PizzaSizes.Where(ps => ps.PizzaSizeId == id).First().PizzaSizePrice;
+            _pizzaSizeId = id;
+            _pizzaSize = PizzaSizes.Where(ps => ps.PizzaSizeId == id).First();
+            _pizzaPrice += _pizzaSize.PizzaSizePrice;
             return View();
         }
 
         public IActionResult SetCrust(int id)
         {
-            _pizza.CrustId = id;
-            _pizza.PizzaPrice += Crusts.Where(c => c.CrustId == id).First().CrustPrice;
+            _crustId = id;
+            _crust = Crusts.Where(c => c.CrustId == id).First();
+            _pizzaPrice += _crust.CrustPrice;
             return View("SelectTopping");
         }
 
@@ -283,12 +334,12 @@ namespace PizzaBox.Client.Controllers
         {
             if (id == 0)
                 return View();
-            foreach (PizzaTopping pt in _pizza.PizzaToppings)
+            foreach (PizzaTopping pt in _PizzaToppings)
             {
                 if (pt.ToppingId == id)
                 {
                     pt.ToppingCount += 1;
-                    _pizza.PizzaPrice += pt.Topping.ToppingPrice;
+                    _pizzaPrice += pt.Topping.ToppingPrice;
                     return View();
                 }
             }
@@ -297,12 +348,12 @@ namespace PizzaBox.Client.Controllers
             {
                 if (t.ToppingId == id)
                 {
-                    _pizza.PizzaPrice += t.ToppingPrice;
+                    _pizzaPrice += t.ToppingPrice;
                     PizzaTopping pizzaTopping = new PizzaTopping();
                     pizzaTopping.Topping = t;
                     pizzaTopping.ToppingCount = 1;
                     pizzaTopping.ToppingId = id;
-                    _pizza.PizzaToppings.Add(pizzaTopping);
+                    _PizzaToppings.Add(pizzaTopping);
                     return View();
                 }
             }
@@ -311,11 +362,21 @@ namespace PizzaBox.Client.Controllers
 
         public IActionResult FinishPizza()
         {
-            _order.Pizzas.Add(_pizza);
-            _order.Cost += _pizza.PizzaPrice;
+            Pizza pizza = new Pizza();
+            pizza.Crust = _crust;
+            pizza.CrustId = _crustId;
+            pizza.PizzaPrice = _pizzaPrice;
+            pizza.PizzaSize = _pizzaSize;
+            pizza.PizzaSizeId = _pizzaSizeId;
+            foreach (PizzaTopping pt in _PizzaToppings)
+            {
+                pizza.PizzaToppings.Add(pt);
+            }
+
+            _order.Pizzas.Add(pizza);
+            _order.Cost += pizza.PizzaPrice;
             return View("AddPizza");
         }
-
         
         /********************************* POST ORDER ****************************/
 

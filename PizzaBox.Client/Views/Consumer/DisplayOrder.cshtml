@@ -1,13 +1,13 @@
-﻿@using PizzaBox.Client.Controllers
+﻿@model PizzaBox.Client.Models.Order
 
 @{
-    ViewData["Title"] = "Order Completed";
+    ViewData["Title"] = "Order Details";
 }
 
-<h1>Order Completed!</h1>
+<h1>Order Details</h1>
 
-<h6>Here is your order summary:</h6>
-@foreach (Pizza p in ConsumerController._order.Pizzas)
+<h6>Here is your order details:</h6>
+@foreach (Pizza p in Model.Pizzas)
 {
     String s = " ";
     foreach (PizzaTopping pt in p.PizzaToppings)
@@ -18,5 +18,6 @@
     <p>@p.PizzaSize.PizzaSizeName, @p.Crust.CrustName pizza with toppings @s.</p>
 }
 
-<a asp-action="DisplayCustomer" asp-route-id="@ConsumerController._order.CustomerId">View all orders</a><br />
+<a asp-action="DisplayCustomer" asp-route-id="@Model.CustomerId">View all orders</a>
+<br />
 <a asp-action="Index">Log out</a>
